@@ -20,28 +20,51 @@ async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
 
+fn handle_args(args: Vec<String>) -> std::io::Result<()> {
+    println!("Args: {:?}", args);
+
+    if args.len() >= 2 && args[1] == "fetch-data" {
+        info!("Fetching data...");
+
+        // TODO: Run fetch new items here
+
+        Ok(())
+    } else {
+        info!("Invalid arguments");
+
+        Ok(())
+    }
+}
+
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));
 
-    let is_ssl = env::var("SSL").is_ok();
-    let host = env::var("HOST").unwrap_or_else(|_| HOST.to_string());
-    let port = env::var("PORT")
-        .unwrap_or_else(|_| PORT.to_string())
-        .parse::<u16>()
-        .unwrap_or(PORT);
-    let protocol = if is_ssl { "https" } else { "http" };
+    let args: Vec<String> = env::args().collect();
 
-    info!("Starting server at {}://{}:{}", protocol, host, port);
+    if args.len() >= 2 {
+        handle_args(args)
+    } else {
+        let is_ssl = env::var("SSL").is_ok();
+        let host = env::var("HOST").unwrap_or_else(|_| HOST.to_string());
+        let port = env::var("PORT")
+            .unwrap_or_else(|_| PORT.to_string())
+            .parse::<u16>()
+            .unwrap_or(PORT);
+        let protocol = if is_ssl { "https" } else { "http" };
 
-    HttpServer::new(|| {
-        App::new()
-            .service(hello)
-            .service(echo)
-            .wrap(middleware::Logger::default())
-            .route("hey", web::get().to(manual_hello))
-    })
-    .bind((host, port))?
-    .run()
-    .await
+        info!("Starting server at {}://{}:{}", protocol, host, port);
+
+        HttpServer::new(|| {
+            App::new()
+                .service(hello)
+                .service(echo)
+                .wrap(middleware::Logger::default())
+                .route("hey", web::get().to(manual_hello))
+        })
+        .bind((host, port))?
+        .run()
+        .await
+    }
 }
