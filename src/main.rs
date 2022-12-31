@@ -21,9 +21,9 @@ async fn manual_hello() -> impl Responder {
 }
 
 fn handle_args(args: Vec<String>) -> std::io::Result<()> {
-    println!("Args: {:?}", args);
+    info!("Args: {:?}", &args[1..]);
 
-    if args.len() >= 2 && args[1] == "fetch-data" {
+    if args[1] == "fetch-data" {
         info!("Fetching data...");
 
         // TODO: Run fetch new items here
