@@ -1,22 +1,32 @@
-use actix_web::{get, middleware, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, middleware, post, App, HttpResponse, HttpServer, Responder};
 use log::info;
 use std::env;
 
-const HOST: &str = "127.0.0.1";
+const HOST: &str = "0.0.0.0";
 const PORT: u16 = 8080;
 
 #[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+async fn root() -> impl Responder {
+    // TODO: Add a real response
+    HttpResponse::Ok().body("Sismos root!")
 }
 
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
+#[get("/api")]
+async fn ai_response(prompt: String) -> impl Responder {
+    // TODO: Add a real response
+    HttpResponse::Ok().body(prompt)
 }
 
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+#[post("/whatsapp/incoming")]
+async fn whatsapp_incoming(prompt: String) -> impl Responder {
+    // TODO: Add a real response
+    HttpResponse::Ok().body(prompt)
+}
+
+#[post("/whatsapp/status")]
+async fn whatsapp_status(prompt: String) -> impl Responder {
+    // TODO: Add a real response
+    HttpResponse::Ok().body(prompt)
 }
 
 fn handle_args(args: Vec<String>) -> std::io::Result<()> {
@@ -53,10 +63,11 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            .service(hello)
-            .service(echo)
+            .service(root)
+            .service(ai_response)
+            .service(whatsapp_incoming)
+            .service(whatsapp_status)
             .wrap(middleware::Logger::default())
-            .route("/hey", web::get().to(manual_hello))
     })
     .bind((host, port))?
     .run()
