@@ -1,14 +1,22 @@
 use actix_web::{get, middleware, post, App, HttpResponse, HttpServer, Responder};
 use log::info;
+use serde::Serialize;
 use std::env;
 
 const HOST: &str = "0.0.0.0";
 const PORT: u16 = 8080;
 
+#[derive(Serialize)]
+struct MyJsonResponse {
+    message: String,
+}
+
 #[get("/")]
 async fn root() -> impl Responder {
-    // TODO: Add a real response
-    HttpResponse::Ok().body("Sismos root!")
+    let obj = MyJsonResponse {
+        message: "Hello, world!".to_string(),
+    };
+    HttpResponse::Ok().json(obj)
 }
 
 #[get("/api")]
