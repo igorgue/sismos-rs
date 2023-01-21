@@ -1,17 +1,40 @@
 use std::fs::File;
 use std::io::Read;
 
+use chrono::{Datelike, Timelike};
+
 use sismos::ineter::parse_html;
 
 #[test]
 fn test_parse_html() {
     let content = _get_test_content("sismos.0.php.html");
     let items = parse_html(content.as_str());
-    let first = &items[0];
 
     assert_eq!(content.len(), 43371);
-    assert_eq!(parse_html(&content).len(), 147);
-    assert_eq!(first.created.to_string(), "2022-12-04 22:06:29 UTC");
+    assert_eq!(items.len(), 147);
+
+    let first = &items[0];
+    assert_eq!(first.created.year(), 2022);
+    assert_eq!(first.created.month(), 12);
+    assert_eq!(first.created.day(), 4);
+    assert_eq!(first.created.hour(), 22);
+    assert_eq!(first.created.minute(), 6);
+    assert_eq!(first.created.second(), 29);
+    assert_eq!(first.lat, "12.590");
+    assert_eq!(first.long, "-90.132");
+    assert_eq!(first.depth, "5");
+    assert_eq!(first.richter, "4.1");
+    assert_eq!(first.description, "C");
+    assert_eq!(first.location, "116 Km al sur de Acajutla");
+    assert_eq!(first.country, "El Salvador");
+    assert_eq!(
+        first.content_hash,
+        "617216bf36050c6911b92a9d492b7625fa1c13e5e8f971e5b7e1a5bd1bac2778"
+    );
+    assert_eq!(
+        first.partial_content_hash,
+        "b3662eb31b134dfda89ea484a9724ba98652dcf68c02742b055a7d93eb879a18"
+    )
 }
 
 fn _get_test_content(filename: &str) -> String {
