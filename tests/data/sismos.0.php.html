@@ -1,0 +1,492 @@
+<html>
+<head>
+<script language="javascript">
+//Funci�n para que el formulario se ejecute cuando doy click en el link
+function ver_mapa(id,latitud,longitud){
+document.mapa.id.value=id;
+document.mapa.lat.value=latitud;
+document.mapa.lon.value=longitud;
+document.mapa.submit();
+}
+//Funci�n para que muestre un mensaje sobre la barra de estado cuando posiciono el mouse sobre el link. S�lo me funcion� en IE.
+function msgbarra(mensaje) {
+    window.status = mensaje ;
+    return true ;
+}
+
+</script>
+
+<style>
+A {
+  TEXT-DECORATION: none; COLOR: #0000FF; FONT-SIZE: 12px; FONT-FAMILY: Lucida Console; line-height:8px;
+}
+A:hover {
+  TEXT-DECORATION: underline; COLOR: #000000
+}
+
+.estiloA {
+ color: red;
+}
+.estiloB {
+ color: green;
+}
+.estiloC {
+ color: #6f4e37;
+}
+</style>
+</head>
+
+<body>
+
+
+<form method="post" name="mapa" action="sismos_osm.php" target="_blank">
+
+
+<a href="javascript:ver_mapa(1,12.590,-90.132);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 16:06:29 12.590 -90.132    5  4.1  <span class='estiloC'>C</span> 116 Km al sur de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(2,12.513,-90.027);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 16:05:55 12.513 -90.027   11  4.0  <span class='estiloC'>C</span> 121 Km al sur de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(3,12.341,-87.621);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 13:59:10 12.341 -87.621   36  2.0  <span class='estiloC'>C</span> 48 Km al suroeste de Jiquilillo, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(4,11.688,-86.214);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 11:06:52 11.688 -86.214  120  2.6  <span class='estiloC'>C</span> 14 Km al noreste de Huehuete, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(5,12.062,-87.031);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 10:49:39 12.062 -87.031   43  2.8  <span class='estiloC'>C</span> 33 Km al suroeste de Puerto Sandino, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(6,14.644,-90.813);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 10:20:46 14.644 -90.813  217  2.9  <span class='estiloC'>C</span> 2 Km al sur de Chimaltenango, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(7,11.298,-87.227);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 10:07:15 11.298 -87.227   12  2.8  <span class='estiloC'>C</span> 95 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(8,11.228,-87.280);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 10:05:51 11.228 -87.280   15  2.7  <span class='estiloC'>C</span> 104 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(9,12.946,-88.724);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 05:56:32 12.946 -88.724   33  3.0  <span class='estiloC'>C</span> 36 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(10, 7.219,-82.327);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 04:06:38  7.219 -82.327   10  4.6  <span class='estiloC'>C</span> 58 Km al oeste de Isla Jicarón, Distrito Montijo, Panamá</PRE></a>
+
+
+<a href="javascript:ver_mapa(11,11.253,-87.087);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 01:30:50 11.253 -87.087   18  2.6  <span class='estiloC'>C</span> 86 Km al suroeste de Pochomil, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(12,12.186,-87.783);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/04 01:03:29 12.186 -87.783   19  2.9  <span class='estiloC'>C</span> 71 Km al suroeste de Jiquilillo, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(13,10.684,-84.992);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 23:47:17 10.684 -84.992  174  2.2  <span class='estiloC'>C</span> 34 Km al sureste de Cuatro Bocas, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(14, 9.446,-84.826);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 22:16:53  9.446 -84.826    2  2.9  <span class='estiloC'>C</span> 28 Km al suroeste de Jacó, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(15,13.893,-91.659);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 17:18:53 13.893 -91.659   25  3.3  <span class='estiloC'>C</span> 22 Km al suroeste de El Semillero, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(16, 8.722,-83.460);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 15:02:46  8.722 -83.460    7  4.2  <span class='estiloC'>C</span> 31 Km al norte de Playa Madrigal, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(17, 8.366,-82.865);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 10:03:30  8.366 -82.865   16  2.9  <span class='estiloC'>C</span> 6 Km al noroeste de Rodolfo Aguilar Delgado, Panamá</PRE></a>
+
+
+<a href="javascript:ver_mapa(18,12.850,-88.838);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 05:53:53 12.850 -88.838   27  3.4  <span class='estiloC'>C</span> 45 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(19, 7.335,-77.041);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 05:41:34  7.335 -77.041    1  5.5  <span class='estiloC'>C</span> 54 Km al suroeste de Chigorodo, Colombia</PRE></a>
+
+
+<a href="javascript:ver_mapa(20,10.028,-86.821);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 05:21:43 10.028 -86.821   15  3.2  <span class='estiloC'>C</span> 96 Km al oeste de Rosario, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(21, 8.062,-82.780);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 03:51:58  8.062 -82.780   11  3.0  <span class='estiloC'>C</span> 10 Km al sureste de Limones, Distrito Barú, Panamá</PRE></a>
+
+
+<a href="javascript:ver_mapa(22,11.409,-85.767);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 03:35:31 11.409 -85.767  148  3.8  <span class='estiloC'>C</span> 4 Km al norte de La Virgen, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(23,11.644,-86.543);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 02:58:33 11.644 -86.543   43  2.9  <span class='estiloC'>C</span> 15 Km al sur de Pochomil, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(24,12.516,-88.037);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 02:45:13 12.516 -88.037   35  2.7  <span class='estiloC'>C</span> 58 Km al suroeste de Punta Cosigüina, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(25,11.384,-87.295);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 02:26:26 11.384 -87.295   47  3.5  <span class='estiloC'>C</span> 96 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(26,12.809,-90.331);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 02:21:53 12.809 -90.331    8  2.9  <span class='estiloC'>C</span> 102 Km al suroeste de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(27, 0.326,-79.537);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 01:36:04  0.326 -79.537   10  3.1  <span class='estiloC'>C</span> 65 Km al noreste de Pedernales, Ecuador</PRE></a>
+
+
+<a href="javascript:ver_mapa(28,12.496,-86.949);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/03 01:03:46 12.496 -86.949  176  1.9  <span class='estiloC'>C</span> 11 Km al noroeste de León, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(29,10.845,-85.627);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 21:49:06 10.845 -85.627   49  3.0  <span class='estiloC'>C</span> 31 Km al noroeste de Liberia, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(30,10.925,-85.123);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 19:40:18 10.925 -85.123  191  3.3  <span class='estiloC'>C</span> 9 Km al norte de Cuatro Bocas, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(31,12.967,-89.051);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 18:45:13 12.967 -89.051   32  2.8  <span class='estiloC'>C</span> 40 Km al suroeste de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(32,10.707,-85.020);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 17:25:31 10.707 -85.020    7  2.7  <span class='estiloC'>C</span> 30 Km al sureste de Cuatro Bocas, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(33,10.700,-85.017);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 17:15:46 10.700 -85.017    5  3.0  <span class='estiloC'>C</span> 31 Km al sureste de Cuatro Bocas, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(34,12.721,-88.701);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 13:13:13 12.721 -88.701   29  3.8  <span class='estiloC'>C</span> 61 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(35, 0.742,-80.170);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 09:44:30  0.742 -80.170    3  5.0  <span class='estiloC'>C</span> 63 Km al suroeste de Esmeraldas, Ecuador</PRE></a>
+
+
+<a href="javascript:ver_mapa(36,11.563,-86.992);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 06:32:56 11.563 -86.992   31  2.9  <span class='estiloC'>C</span> 58 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(37,14.042,-91.562);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 04:52:58 14.042 -91.562   42  3.9  <span class='estiloC'>C</span> 4 Km al oeste de El Semillero, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(38,11.085,-86.546);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 03:40:33 11.085 -86.546   17  2.9  <span class='estiloC'>C</span> 62 Km al suroeste de El Astillero, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(39,13.240,-89.962);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 03:29:06 13.240 -89.962   26  3.3  <span class='estiloC'>C</span> 41 Km al sur de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(40,15.618,-92.489);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 02:59:27 15.618 -92.489  145  3.9  <span class='estiloC'>C</span> 46 Km al norte de Pueblo Nuevo, México</PRE></a>
+
+
+<a href="javascript:ver_mapa(41,12.905,-88.780);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 02:49:33 12.905 -88.780   34  4.2  <span class='estiloC'>C</span> 39 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(42,16.156,-91.082);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/02 01:40:08 16.156 -91.082    1  4.1  <span class='estiloC'>C</span> 103 Km al noreste de Huehuetenango, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(43,13.609,-89.801);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 21:44:59 13.609 -89.801   62  2.7  <span class='estiloC'>C</span> 4 Km al noreste de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(44, 7.420,-77.023);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 19:48:58  7.420 -77.023   48  4.7  <span class='estiloC'>C</span> 47 Km al suroeste de Chigorodo, Colombia</PRE></a>
+
+
+<a href="javascript:ver_mapa(45,11.172,-86.904);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 19:37:12 11.172 -86.904   25  3.8  <span class='estiloC'>C</span> 79 Km al suroeste de Casares, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(46,11.187,-86.925);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 13:27:24 11.187 -86.925   31  2.9  <span class='estiloC'>C</span> 79 Km al suroeste de Pochomil, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(47,12.697,-88.287);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 12:30:15 12.697 -88.287   28  3.1  <span class='estiloC'>C</span> 56 Km al sur de Playa El Cuco, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(48, 7.340,-82.473);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 07:30:44  7.340 -82.473    6  5.3  <span class='estiloC'>C</span> 67 Km al oeste de Isla de Coiba, Panamá</PRE></a>
+
+
+<a href="javascript:ver_mapa(49,16.017,-83.047);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 06:30:13 16.017 -83.047   10  4.5  <span class='estiloC'>C</span> 104 Km al noreste de Barra de Caratosca, Honduras</PRE></a>
+
+
+<a href="javascript:ver_mapa(50,13.676,-89.058);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 01:01:36 13.676 -89.058    7  2.7  <span class='estiloC'>C</span> 6 Km al norte de Ilopango, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(51, 0.741,-80.254);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/12/01 00:52:31  0.741 -80.254  110  4.3  <span class='estiloC'>C</span> 72 Km al suroeste de Esmeraldas, Ecuador</PRE></a>
+
+
+<a href="javascript:ver_mapa(52,12.371,-87.753);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 21:53:09 12.371 -87.753   31  2.7  <span class='estiloC'>C</span> 52 Km al suroeste de Jiquilillo, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(53,13.055,-89.423);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 19:58:43 13.055 -89.423   27  3.4  <span class='estiloC'>C</span> 49 Km al sur de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(54,13.035,-90.084);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 19:26:04 13.035 -90.084   12  3.1  <span class='estiloC'>C</span> 67 Km al suroeste de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(55,12.927,-87.388);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 14:53:36 12.927 -87.388   11  1.9  <span class='estiloC'>C</span> 1 Km al norte de Desembocadura del Río Estero Real, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(56,12.490,-87.965);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 13:51:49 12.490 -87.965   27  2.9  <span class='estiloC'>C</span> 55 Km al suroeste de Punta Cosigüina, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(57,13.885,-89.737);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 12:06:58 13.885 -89.737    7  2.2  <span class='estiloC'>C</span> 12 Km al norte de Ahuachapan, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(58, 8.604,-83.184);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 07:52:17  8.604 -83.184   15  3.6  <span class='estiloC'>C</span> 35 Km al noroeste de Laurel, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(59,13.980,-91.529);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 07:26:24 13.980 -91.529   41  3.3  <span class='estiloC'>C</span> 7 Km al sur de El Semillero, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(60,12.801,-90.502);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 07:15:02 12.801 -90.502   20  3.1  <span class='estiloC'>C</span> 114 Km al suroeste de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(61,10.949,-83.720);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 05:16:34 10.949 -83.720   10  2.9  <span class='estiloC'>C</span> 1 Km al norte de San juan de Nicaragua, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(62,12.825,-87.582);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 04:14:08 12.825 -87.582  166  2.4  <span class='estiloC'>C</span> 1 Km al sur de Mechapa, Chinandega, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(63,12.785,-90.457);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 03:20:32 12.785 -90.457   15  3.4  <span class='estiloC'>C</span> 112 Km al suroeste de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(64,14.557,-90.524);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 03:19:12 14.557 -90.524    5  2.6  <span class='estiloC'>C</span> 8 Km al sur de Guatemala, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(65,12.777,-90.539);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 03:10:49 12.777 -90.539    1  2.9  <span class='estiloC'>C</span> 118 Km al suroeste de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(66,12.957,-88.954);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 01:20:36 12.957 -88.954   30  2.9  <span class='estiloC'>C</span> 36 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(67,11.298,-87.513);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 00:56:44 11.298 -87.513   22  3.2  <span class='estiloC'>C</span> 122 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(68,11.491,-87.355);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 00:55:35 11.491 -87.355   35  3.4  <span class='estiloC'>C</span> 95 Km al suroeste de El Transito, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(69,12.719,-88.683);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/30 00:54:04 12.719 -88.683   35  3.6  <span class='estiloC'>C</span> 62 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(70,12.952,-89.045);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 23:22:04 12.952 -89.045   26  3.1  <span class='estiloC'>C</span> 41 Km al suroeste de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(71,13.012,-89.246);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 23:04:48 13.012 -89.246   25  3.3  <span class='estiloC'>C</span> 53 Km al suroeste de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(72,13.725,-91.682);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 22:59:53 13.725 -91.682   29  2.9  <span class='estiloC'>C</span> 39 Km al suroeste de El Semillero, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(73,12.564,-86.704);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 22:25:51 12.564 -86.704    8  0.9  <span class='estiloC'>C</span> 5 Km al norte de Volcán Rota, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(74,10.491,-86.989);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 22:23:17 10.491 -86.989    5  3.2  <span class='estiloC'>C</span> 111 Km al oeste de Rosario, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(75,12.870,-87.297);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 21:00:11 12.870 -87.297   11  1.5  <span class='estiloC'>C</span> 13 Km al sureste de Desembocadura del Río Estero Real, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(76,12.873,-87.291);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 20:43:09 12.873 -87.291   11  1.8  <span class='estiloC'>C</span> 13 Km al oeste de Puerto Morazán, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(77,12.882,-87.288);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 20:41:12 12.882 -87.288    9  2.3  <span class='estiloC'>C</span> 13 Km al oeste de Puerto Morazán, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(78,12.329,-87.653);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 20:33:37 12.329 -87.653   34  2.3  <span class='estiloC'>C</span> 50 Km al suroeste de Jiquilillo, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(79,12.825,-88.507);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 18:52:05 12.825 -88.507   36  2.8  <span class='estiloC'>C</span> 58 Km al suroeste de Playa El Cuco, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(80,12.445,-88.097);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 17:14:38 12.445 -88.097   24  2.9  <span class='estiloC'>C</span> 68 Km al suroeste de Punta Cosigüina, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(81,13.742,-92.617);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 08:20:16 13.742 -92.617    3  4.2  <span class='estiloC'>C</span> 97 Km al suroeste de San Marcos, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(82,11.546,-88.574);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 07:57:26 11.546 -88.574   13  3.1  <span class='estiloC'>C</span> 179 Km al suroeste de Mechapa, Chinandega, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(83,13.818,-92.713);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 07:24:13 13.818 -92.713   15  4.4  <span class='estiloC'>C</span> 95 Km al suroeste de San Marcos, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(84,13.461,-89.181);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 05:09:53 13.461 -89.181  103  3.9  <span class='estiloC'>C</span> 16 Km al norte de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(85,12.619,-89.391);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 02:56:18 12.619 -89.391    9  4.2  <span class='estiloC'>C</span> 93 Km al suroeste de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(86,13.028,-89.041);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 01:52:03 13.028 -89.041   38  3.5  <span class='estiloC'>C</span> 34 Km al suroeste de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(87,12.855,-88.674);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/29 00:00:19 12.855 -88.674   29  3.0  <span class='estiloC'>C</span> 48 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(88,12.941,-89.576);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 19:07:21 12.941 -89.576   21  2.6  <span class='estiloC'>C</span> 66 Km al suroeste de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(89, 8.749,-83.310);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 15:39:58  8.749 -83.310   18  2.6  <span class='estiloC'>C</span> 40 Km al noreste de Playa Madrigal, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(90,11.678,-87.846);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 14:19:03 11.678 -87.846   23  3.0  <span class='estiloC'>C</span> 116 Km al suroeste de Corinto, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(91,11.679,-86.779);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 14:05:03 11.679 -86.779   34  3.2  <span class='estiloC'>C</span> 31 Km al oeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(92,13.528,-89.438);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 13:35:53 13.528 -89.438    2  1.9  <span class='estiloC'>C</span> 13 Km al oeste de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(93, 8.705,-83.342);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 12:44:14  8.705 -83.342   17  2.5  <span class='estiloC'>C</span> 34 Km al noreste de Playa Madrigal, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(94,13.626,-91.019);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 12:00:09 13.626 -91.019   52  3.2  <span class='estiloC'>C</span> 36 Km al sur de Sipacate, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(95,14.071,-89.707);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 11:45:01 14.071 -89.707   14  1.6  <span class='estiloC'>C</span> 19 Km al noroeste de Santa Ana, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(96,13.286,-87.815);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 11:34:59 13.286 -87.815    8  2.3  <span class='estiloC'>C</span> 6 Km al sureste de La Union, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(97,12.932,-88.957);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 09:43:51 12.932 -88.957   35  3.1  <span class='estiloC'>C</span> 39 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(98, 6.811,-76.408);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 07:37:12  6.811 -76.408    2  5.1  <span class='estiloC'>C</span> 99 Km al sur de Chigorodo, Colombia</PRE></a>
+
+
+<a href="javascript:ver_mapa(99,15.073,-91.814);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 07:16:23 15.073 -91.814  156  3.3  <span class='estiloC'>C</span> 12 Km al norte de San Marcos, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(100,11.476,-85.913);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 03:57:44 11.476 -85.913  175  2.1  <span class='estiloC'>C</span> 10 Km al noroeste de Rivas, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(101,12.972,-89.676);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 03:08:30 12.972 -89.676   19  2.7  <span class='estiloC'>C</span> 68 Km al suroeste de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(102, 8.779,-84.110);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 01:50:59  8.779 -84.110    3  3.6  <span class='estiloC'>C</span> 59 Km al suroeste de Dominical, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(103,11.952,-86.605);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/28 00:45:14 11.952 -86.605   74  2.2  <span class='estiloC'>C</span> 16 Km al sureste de El Transito, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(104,11.662,-86.756);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 23:58:54 11.662 -86.756   30  2.5  <span class='estiloC'>C</span> 30 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(105,11.632,-87.419);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 23:02:19 11.632 -87.419   25  2.4  <span class='estiloC'>C</span> 91 Km al suroeste de El Transito, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(106,17.617,-95.194);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 21:42:02 17.617 -95.194   97  4.5  <span class='estiloC'>C</span> 160 Km al norte de Salina Cruz, México</PRE></a>
+
+
+<a href="javascript:ver_mapa(107,14.548,-89.135);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 21:12:07 14.548 -89.135    4  3.8  <span class='estiloC'>C</span> 14 Km al norte de Nueva Ocotepeque, Honduras</PRE></a>
+
+
+<a href="javascript:ver_mapa(108,10.897,-85.160);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 18:58:28 10.897 -85.160   19  2.2  <span class='estiloC'>C</span> 5 Km al norte de Cuatro Bocas, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(109,13.416,-88.410);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 13:55:06 13.416 -88.410  183  2.4  <span class='estiloC'>C</span> 8 Km al norte de Usulután, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(110, 8.279,-82.798);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 13:11:20  8.279 -82.798    9  3.0  <span class='estiloC'>C</span> 4 Km al sur de Manglares de Majagual, Panamá</PRE></a>
+
+
+<a href="javascript:ver_mapa(111,13.613,-90.513);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 05:46:06 13.613 -90.513   11  2.3  <span class='estiloC'>C</span> 35 Km al suroeste de Las Brisas, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(112,11.652,-86.752);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 05:08:56 11.652 -86.752   36  4.2  <span class='estiloC'>C</span> 30 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(113,14.047,-90.112);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 03:05:15 14.047 -90.112  158  2.3  <span class='estiloC'>C</span> 30 Km al noreste de Las Brisas, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(114,11.642,-86.769);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 02:32:37 11.642 -86.769   38  5.3  <span class='estiloC'>C</span> 32 Km al suroeste de Masachapa, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(115,12.108,-88.323);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 01:53:27 12.108 -88.323   13  3.1  <span class='estiloC'>C</span> 113 Km al suroeste de Punta Cosigüina, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(116,15.230,-93.612);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 01:43:55 15.230 -93.612   25  3.2  <span class='estiloC'>C</span> 63 Km al suroeste de San Isidro, México</PRE></a>
+
+
+<a href="javascript:ver_mapa(117,13.186,-89.795);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/27 01:27:46 13.186 -89.795   21  2.6  <span class='estiloC'>C</span> 45 Km al sur de Acajutla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(118,12.981,-89.251);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 22:49:16 12.981 -89.251   23  2.9  <span class='estiloC'>C</span> 55 Km al suroeste de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(119,11.139,-85.578);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 22:46:32 11.139 -85.578  154  2.2  <span class='estiloC'>C</span> 10 Km al suroeste de Cárdenas, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(120,10.839,-86.468);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 22:28:05 10.839 -86.468   10  4.0  <span class='estiloC'>C</span> 57 Km al oeste de Caba Santa Elena, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(121,10.781,-86.757);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 20:52:01 10.781 -86.757    3  3.0  <span class='estiloC'>C</span> 89 Km al oeste de Caba Santa Elena, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(122,12.589,-86.849);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 20:48:20 12.589 -86.849    6  1.3  <span class='estiloC'>C</span> 2 Km al sur de Volcán Telica, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(123,11.107,-86.573);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 20:25:30 11.107 -86.573   14  2.6  <span class='estiloC'>C</span> 62 Km al suroeste de El Astillero, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(124,12.436,-87.910);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 17:47:51 12.436 -87.910   32  2.5  <span class='estiloC'>C</span> 57 Km al suroeste de Mechapa, Chinandega, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(125,12.994,-89.269);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 16:23:00 12.994 -89.269   29  3.2  <span class='estiloC'>C</span> 55 Km al sur de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(126,13.082,-89.292);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 13:21:48 13.082 -89.292   29  3.2  <span class='estiloC'>C</span> 45 Km al sur de La Libertad, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(127,12.819,-87.167);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 09:57:00 12.819 -87.167    7  1.9  <span class='estiloC'>C</span> 6 Km al sur de Puerto Morazán, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(128,12.810,-87.176);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 08:08:22 12.810 -87.176   11  2.1  <span class='estiloC'>C</span> 7 Km al sur de Puerto Morazán, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(129,11.127,-87.080);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 07:44:06 11.127 -87.080   34  3.2  <span class='estiloC'>C</span> 95 Km al suroeste de Pochomil, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(130,12.790,-87.176);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 05:11:10 12.790 -87.176   12  2.2  <span class='estiloC'>C</span> 9 Km al sur de Puerto Morazán, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(131,11.415,-85.885);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/26 02:48:13 11.415 -85.885  181  2.3  <span class='estiloC'>C</span> 7 Km al oeste de Rivas, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(132,12.357,-87.566);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 22:42:00 12.357 -87.566   34  3.4  <span class='estiloC'>C</span> 44 Km al sur de Jiquilillo, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(133,13.387,-87.115);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 18:41:50 13.387 -87.115    6  2.5  <span class='estiloC'>C</span> 13 Km al noreste de Choluteca, Honduras</PRE></a>
+
+
+<a href="javascript:ver_mapa(134,13.798,-89.457);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 18:18:56 13.798 -89.457    6  2.2  <span class='estiloC'>C</span> 23 Km al noroeste de Santa Tecla, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(135,12.249,-87.782);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 09:49:16 12.249 -87.782   28  2.7  <span class='estiloC'>C</span> 65 Km al suroeste de Jiquilillo, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(136, 9.384,-79.763);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 09:17:23  9.384 -79.763   45  1.3  <span class='estiloC'>C</span> 6 Km al sur de María Chiquita, Panamá</PRE></a>
+
+
+<a href="javascript:ver_mapa(137, 8.985,-82.811);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 08:47:36  8.985 -82.811    8  2.5  <span class='estiloC'>C</span> 9 Km al norte de La Tigra, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(138,14.791,-91.241);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 02:01:43 14.791 -91.241  152  4.2  <span class='estiloC'>C</span> 7 Km al oeste de Solola, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(139,13.726,-91.202);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/25 00:17:37 13.726 -91.202   34  3.2  <span class='estiloC'>C</span> 23 Km al sur de San Jose, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(140,10.425,-86.379);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 22:16:48 10.425 -86.379    5  3.3  <span class='estiloC'>C</span> 44 Km al oeste de Rosario, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(141,12.398,-88.902);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 21:39:26 12.398 -88.902    1  3.0  <span class='estiloC'>C</span> 96 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<a href="javascript:ver_mapa(142,11.564,-87.165);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 20:44:37 11.564 -87.165   15  2.4  <span class='estiloC'>C</span> 74 Km al suroeste de El Transito, Nicaragua</PRE></a>
+
+
+<a href="javascript:ver_mapa(143,10.443,-83.944);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 20:00:12 10.443 -83.944    3  2.5  <span class='estiloC'>C</span> 19 Km al sur de Arbolitos, Heredia, Costa Rica</PRE></a>
+
+
+<a href="javascript:ver_mapa(144,13.371,-90.903);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 19:54:05 13.371 -90.903    1  3.0  <span class='estiloC'>C</span> 66 Km al sur de Iztapa, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(145,13.574,-90.824);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 19:30:08 13.574 -90.824   26  3.0  <span class='estiloC'>C</span> 41 Km al sur de Iztapa, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(146,13.623,-90.623);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 16:38:21 13.623 -90.623   24  3.6  <span class='estiloC'>C</span> 36 Km al sur de Iztapa, Guatemala</PRE></a>
+
+
+<a href="javascript:ver_mapa(147,12.914,-88.963);" onMouseOver="return msgbarra('Ver este evento con GoogleMaps');" onMouseOut="return msgbarra('');"><PRE>22/11/24 16:30:01 12.914 -88.963   31  2.9  <span class='estiloC'>C</span> 41 Km al sur de Delta del Rio Lempa, El Salvador</PRE></a>
+
+
+<input type="hidden" name="id">
+<input type="hidden" name="lat">
+<input type="hidden" name="lon">
+
+</form>
+</body>
+</html>
