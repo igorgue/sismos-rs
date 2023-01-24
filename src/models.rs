@@ -33,6 +33,7 @@ pub struct Sismo {
 }
 
 /// A sismo (earthquake) parsed from HTML
+#[derive(Debug)]
 pub struct ParsedSismo {
     pub created: DateTime<Utc>,
     pub lat: String,
