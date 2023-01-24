@@ -2,6 +2,8 @@ use std::fs::File;
 use std::io::Read;
 
 use chrono::{Datelike, Timelike};
+use wiremock::matchers::{method, path};
+use wiremock::{Mock, MockServer, ResponseTemplate};
 
 use sismos::ineter::parse_html;
 
@@ -35,6 +37,31 @@ fn test_parse_html() {
         first.partial_content_hash,
         "b3662eb31b134dfda89ea484a9724ba98652dcf68c02742b055a7d93eb879a18"
     )
+}
+
+#[actix_rt::test]
+async fn get_data_from_api() {
+    let mock_server = MockServer::start().await;
+
+    Mock::given(method("GET"))
+        .and(path("/geofisica/sis/events/sismos.php"))
+        .respond_with(ResponseTemplate::new(200).set_body_raw(
+            _get_test_content("sismos.0.php.html").as_bytes(),
+            "text/html",
+        ))
+        .mount(&mock_server)
+        .await;
+
+    let url = format!(
+        "{}{}",
+        mock_server.uri().as_str(),
+        "/geofisica/sis/events/sismos.php"
+    );
+    let items = sismos::ineter::get_data_from_api(Some(url.as_str()))
+        .await
+        .unwrap();
+
+    assert_eq!(items.len(), 147);
 }
 
 fn _get_test_content(filename: &str) -> String {

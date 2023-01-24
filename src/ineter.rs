@@ -1,6 +1,9 @@
 use chrono::{DateTime, Utc};
 use sha2::Digest;
 use soup::prelude::*;
+use reqwest;
+
+pub const DATA_URL: &str = "https://webserver2.ineter.gob.ni/geofisica/sis/events/sismos.php";
 
 pub struct Sismo {
     pub created: DateTime<Utc>,
@@ -13,6 +16,13 @@ pub struct Sismo {
     pub content_hash: String,
     pub partial_content_hash: String,
     pub country: String,
+}
+
+pub async fn get_data_from_api(url: Option<&str>) -> Result<Vec<Sismo>, reqwest::Error> {
+    let client = reqwest::Client::new();
+    let response = client.get(url.unwrap_or(DATA_URL)).send().await?;
+
+    Ok(parse_html(response.text().await?.as_str()))
 }
 
 pub fn parse_html(html_content: &str) -> Vec<Sismo> {
@@ -46,11 +56,11 @@ fn parse_pre_item(pre: String) -> Sismo {
     let content_hash = get_content_hash(pre.clone());
     let partial_content_hash = get_partial_content_hash(
         local_time,
-        lat.clone(),
-        long.clone(),
-        depth.clone(),
-        richter.clone(),
-        description.clone(),
+        &lat,
+        &long,
+        &depth,
+        &richter,
+        &description,
     );
 
     Sismo {
@@ -73,11 +83,11 @@ fn get_content_hash(content: String) -> String {
 
 fn get_partial_content_hash(
     local_time: String,
-    lat: String,
-    long: String,
-    depth: String,
-    richter: String,
-    description: String,
+    lat: &String,
+    long: &String,
+    depth: &String,
+    richter: &String,
+    description: &String,
 ) -> String {
     let content = format!(
         "{}{}{}{}{}{}",
