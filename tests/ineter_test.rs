@@ -40,7 +40,7 @@ fn test_parse_html() {
 }
 
 #[actix_rt::test]
-async fn get_data_from_api() {
+async fn test_get_data_from_api() {
     let mock_server = MockServer::start().await;
 
     Mock::given(method("GET"))
