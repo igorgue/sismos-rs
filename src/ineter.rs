@@ -19,7 +19,6 @@ pub fn parse_html(html_content: &str) -> Vec<Sismo> {
     let soup = Soup::new(html_content);
     let pres = soup.tag("pre").find_all();
 
-    // return empty vector of strings
     pres.map(|pre| parse_pre_item(pre.text())).collect()
 }
 
@@ -45,7 +44,16 @@ fn parse_pre_item(pre: String) -> Sismo {
         .trim()
         .to_string();
     let content_hash = get_content_hash(pre.clone());
-    let mut sismo = Sismo {
+    let partial_content_hash = get_partial_content_hash(
+        local_time,
+        lat.clone(),
+        long.clone(),
+        depth.clone(),
+        richter.clone(),
+        description.clone(),
+    );
+
+    Sismo {
         created,
         lat,
         long,
@@ -55,19 +63,8 @@ fn parse_pre_item(pre: String) -> Sismo {
         location,
         country,
         content_hash,
-        partial_content_hash: "".to_string()
-    };
-
-    sismo.partial_content_hash = get_partial_content_hash(
-        local_time,
-        sismo.lat.clone(),
-        sismo.long.clone(),
-        sismo.depth.clone(),
-        sismo.richter.clone(),
-        sismo.description.clone(),
-    );
-
-    sismo
+        partial_content_hash,
+    }
 }
 
 fn get_content_hash(content: String) -> String {
