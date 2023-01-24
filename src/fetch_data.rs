@@ -26,13 +26,6 @@ async fn do_fetch_data(pool: Pool<Sqlite>) {
     for sismo in data {
         try_insert_sismo(&pool, sismo).await;
     }
-    // let sismos = sqlx::query_as!(Sismo, "SELECT * from sismos")
-    //     .fetch_all(&pool)
-    //     .await;
-    //
-    // for sismo in sismos.unwrap() {
-    //     println!("{:?}", sismo);
-    // }
 }
 
 async fn try_insert_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
@@ -56,8 +49,22 @@ async fn try_insert_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
             .fetch_one(pool)
             .await
             {
-                Ok(sismo) => {
-                    info!("Sismo already exists: {:?}", sismo);
+                Ok(sismo_db) => {
+                    info!("Sismo already exists: {:?}, updating", sismo_db);
+
+                    let _ = sqlx::query!(
+                        "UPDATE sismos SET created = ?, lat = ?, long = ?, depth = ?, richter = ?, description = ?, location = ?, country = ?, content_hash = ? WHERE id = ?",
+                        sismo.created,
+                        sismo.lat,
+                        sismo.long,
+                        sismo.depth,
+                        sismo.richter,
+                        sismo.description,
+                        sismo.location,
+                        sismo.country,
+                        sismo.content_hash,
+                        sismo_db.id,
+                    );
                 }
                 Err(_) => {
                     info!("Inserting sismo: {:?}", sismo);
