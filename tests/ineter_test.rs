@@ -5,11 +5,11 @@ use chrono::{Datelike, Timelike};
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
-use sismos::ineter::parse_html;
+use sismos::ineter::{parse_html, get_data_from_api};
 
 #[test]
 fn test_parse_html() {
-    let content = _get_test_content("sismos.0.php.html");
+    let content = get_test_content("sismos.0.php.html");
     let items = parse_html(content.as_str());
 
     assert_eq!(content.len(), 43371);
@@ -39,14 +39,14 @@ fn test_parse_html() {
     )
 }
 
-#[actix_rt::test]
+#[actix_web::test]
 async fn test_get_data_from_api() {
     let mock_server = MockServer::start().await;
 
     Mock::given(method("GET"))
         .and(path("/geofisica/sis/events/sismos.php"))
         .respond_with(ResponseTemplate::new(200).set_body_raw(
-            _get_test_content("sismos.0.php.html").as_bytes(),
+            get_test_content("sismos.0.php.html").as_bytes(),
             "text/html",
         ))
         .mount(&mock_server)
@@ -57,14 +57,14 @@ async fn test_get_data_from_api() {
         mock_server.uri().as_str(),
         "/geofisica/sis/events/sismos.php"
     );
-    let items = sismos::ineter::get_data_from_api(Some(url.as_str()))
+    let items = get_data_from_api(Some(url.as_str()))
         .await
         .unwrap();
 
     assert_eq!(items.len(), 147);
 }
 
-fn _get_test_content(filename: &str) -> String {
+fn get_test_content(filename: &str) -> String {
     let path = format!("tests/data/{}", filename);
     let mut file = File::open(path).unwrap();
     let mut contents = String::new();

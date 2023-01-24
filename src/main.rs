@@ -1,62 +1,24 @@
-use actix_web::{get, middleware, post, App, HttpResponse, HttpServer, Responder};
-use log::info;
-use serde::Serialize;
 use std::env;
+
+use actix_web::{middleware, App, HttpServer};
+use dotenvy;
+use log::info;
+
+use sismos::api::{ai_response, root, whatsapp_incoming, whatsapp_status};
+use sismos::fetch_data::fetch_data;
 
 const HOST: &str = "0.0.0.0";
 const PORT: u16 = 8080;
 
-#[derive(Serialize)]
-struct MyJsonResponse {
-    message: String,
-}
-
-#[get("/")]
-async fn root() -> impl Responder {
-    let obj = MyJsonResponse {
-        message: "Hello, world!".to_string(),
-    };
-    HttpResponse::Ok().json(obj)
-}
-
-#[get("/api")]
-async fn ai_response(prompt: String) -> impl Responder {
-    // TODO: Add a real response
-    HttpResponse::Ok().body(prompt)
-}
-
-#[post("/whatsapp/incoming")]
-async fn whatsapp_incoming(prompt: String) -> impl Responder {
-    // TODO: Add a real response
-    HttpResponse::Ok().body(prompt)
-}
-
-#[post("/whatsapp/status")]
-async fn whatsapp_status(prompt: String) -> impl Responder {
-    // TODO: Add a real response
-    HttpResponse::Ok().body(prompt)
-}
-
-fn handle_args(args: Vec<String>) -> std::io::Result<()> {
-    info!("Args: {:?}", &args[1..]);
-
-    if args[1] == "fetch-data" {
-        info!("Fetching data...");
-    } else {
-        info!("Invalid argument: {}", args[1]);
-    }
-
-    Ok(())
-}
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenvy::dotenv().unwrap();
     env_logger::init_from_env::<_>(env_logger::Env::default().default_filter_or("info"));
 
     let args: Vec<String> = env::args().collect();
 
     if args.len() >= 2 {
-        return handle_args(args);
+        return handle_args(args).await;
     }
 
     let is_ssl = env::var("SSL").is_ok();
@@ -80,4 +42,16 @@ async fn main() -> std::io::Result<()> {
     .bind((host, port))?
     .run()
     .await
+}
+
+async fn handle_args(args: Vec<String>) -> std::io::Result<()> {
+    info!("Args: {:?}", &args[1..]);
+
+    if args[1] == "fetch-data" {
+        fetch_data().await;
+    } else {
+        info!("Invalid argument: {}", args[1]);
+    }
+
+    Ok(())
 }

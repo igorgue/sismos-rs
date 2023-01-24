@@ -1,38 +1,30 @@
 use chrono::{DateTime, Utc};
+use reqwest;
 use sha2::Digest;
 use soup::prelude::*;
-use reqwest;
 
+use crate::models::ParsedSismo;
+
+/// URL to get the data from
 pub const DATA_URL: &str = "https://webserver2.ineter.gob.ni/geofisica/sis/events/sismos.php";
 
-pub struct Sismo {
-    pub created: DateTime<Utc>,
-    pub lat: String,
-    pub long: String,
-    pub depth: String,
-    pub richter: String,
-    pub description: String,
-    pub location: String,
-    pub content_hash: String,
-    pub partial_content_hash: String,
-    pub country: String,
-}
-
-pub async fn get_data_from_api(url: Option<&str>) -> Result<Vec<Sismo>, reqwest::Error> {
+/// Get the data from the INETER API
+pub async fn get_data_from_api(url: Option<&str>) -> Result<Vec<ParsedSismo>, reqwest::Error> {
     let client = reqwest::Client::new();
     let response = client.get(url.unwrap_or(DATA_URL)).send().await?;
 
     Ok(parse_html(response.text().await?.as_str()))
 }
 
-pub fn parse_html(html_content: &str) -> Vec<Sismo> {
+/// Parse the HTML content to get the data
+pub fn parse_html(html_content: &str) -> Vec<ParsedSismo> {
     let soup = Soup::new(html_content);
     let pres = soup.tag("pre").find_all();
 
     pres.map(|pre| parse_pre_item(pre.text())).collect()
 }
 
-fn parse_pre_item(pre: String) -> Sismo {
+fn parse_pre_item(pre: String) -> ParsedSismo {
     let parts = pre.split_whitespace().collect::<Vec<&str>>();
 
     let local_time = parts[0..2].join(" ");
@@ -54,16 +46,10 @@ fn parse_pre_item(pre: String) -> Sismo {
         .trim()
         .to_string();
     let content_hash = get_content_hash(pre.clone());
-    let partial_content_hash = get_partial_content_hash(
-        local_time,
-        &lat,
-        &long,
-        &depth,
-        &richter,
-        &description,
-    );
+    let partial_content_hash =
+        get_partial_content_hash(local_time, &lat, &long, &depth, &richter, &description);
 
-    Sismo {
+    ParsedSismo {
         created,
         lat,
         long,
