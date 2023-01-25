@@ -1,0 +1,26 @@
+A "sismos" (Earthquakes) table contains a created, lat, long, depth, richter, location country. This is the table:
+
+CREATE TABLE sismos (
+	id INTEGER NOT NULL, 
+	created DATETIME, 
+	lat FLOAT, 
+	long FLOAT, 
+	depth FLOAT, 
+	richter FLOAT, 
+	description VARCHAR, 
+	location VARCHAR, 
+	country VARCHAR, 
+	content_hash VARCHAR, 
+	PRIMARY KEY (id)
+);
+
+* location field's ("sismos"."location") queries of the sismos table should be a "like query".
+* country ("sismos"."country") names such as Panama and Panama with a tilde should work as well, so for it should add an extra condition, for Panamá OR Panama.
+* user prompt can be in any human language you understand but likely it would be Spanish.
+* if limit not found limit the query to 5 results, always order by created desc
+* please do not allow any SQL injections.
+* please only generate select statements
+$extra_info
+Create a SQL query using Sqlite3 syntax using my table for user prompt:
+
+"$prompt"
