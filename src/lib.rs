@@ -1,4 +1,4 @@
-pub mod ineter;
-pub mod fetch_data;
-pub mod models;
 pub mod api;
+pub mod fetch_data;
+pub mod ineter;
+pub mod models;

@@ -5,7 +5,7 @@ use chrono::{Datelike, Timelike};
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
-use sismos::ineter::{parse_html, get_data_from_api};
+use sismos::ineter::{get_data_from_api, parse_html};
 
 #[test]
 fn test_parse_html() {
@@ -57,9 +57,7 @@ async fn test_get_data_from_api() {
         mock_server.uri().as_str(),
         "/geofisica/sis/events/sismos.php"
     );
-    let items = get_data_from_api(Some(url.as_str()))
-        .await
-        .unwrap();
+    let items = get_data_from_api(Some(url.as_str())).await.unwrap();
 
     assert_eq!(items.len(), 147);
 }
