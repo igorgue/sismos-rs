@@ -18,7 +18,7 @@ async fn ai_response(prompt: String) -> impl Responder {
 #[post("/whatsapp/incoming")]
 async fn whatsapp_incoming(message: String) -> impl Responder {
     HttpResponse::Ok()
-        .insert_header(("Content-Type", "application/xml"))
+        .insert_header(("Content-Type", "application/xml; charset=utf-8"))
         .body(to_whatsapp_xml_response(message))
 }
 

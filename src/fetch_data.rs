@@ -2,44 +2,36 @@ use std::env;
 
 use log::info;
 use sqlx::sqlite::SqlitePoolOptions;
-use sqlx::{Pool, Sqlite};
+use sqlx::{Pool, Sqlite, query_as, query};
 
 use crate::ineter::get_data_from_api;
 use crate::models::{ParsedSismo, Sismo};
 
 pub async fn latest_5_sismos() -> Vec<Sismo> {
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    info!("Connecting to {}", database_url);
-
-    let pool = SqlitePoolOptions::new()
-        .max_connections(5)
-        .connect(database_url.as_str())
-        .await
-        .unwrap();
-
-    do_latest_5_sismos(pool).await
+    do_latest_5_sismos(get_pool().await).await
 }
 
 pub async fn fetch_data() {
+    do_fetch_data(get_pool().await).await
+}
+
+async fn get_pool() -> Pool<Sqlite> {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+
     info!("Connecting to {}", database_url);
 
-    let pool = SqlitePoolOptions::new()
+    SqlitePoolOptions::new()
         .max_connections(5)
         .connect(database_url.as_str())
         .await
-        .unwrap();
-
-    do_fetch_data(pool).await
+        .unwrap()
 }
 
 async fn do_latest_5_sismos(pool: Pool<Sqlite>) -> Vec<Sismo> {
-    let sismos = sqlx::query_as!(Sismo, "SELECT * FROM sismos ORDER BY created DESC LIMIT 5")
+    query_as!(Sismo, "SELECT * FROM sismos ORDER BY created DESC LIMIT 5")
         .fetch_all(&pool)
         .await
-        .unwrap();
-
-    sismos
+        .unwrap()
 }
 
 async fn do_fetch_data(pool: Pool<Sqlite>) {
@@ -51,7 +43,7 @@ async fn do_fetch_data(pool: Pool<Sqlite>) {
 }
 
 async fn try_insert_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
-    match sqlx::query_as!(
+    match query_as!(
         Sismo,
         "SELECT * FROM sismos WHERE content_hash = ? LIMIT 1",
         sismo.content_hash
@@ -69,7 +61,7 @@ async fn try_insert_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
 }
 
 async fn try_insert_partial_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
-    match sqlx::query_as!(
+    match query_as!(
         Sismo,
         "SELECT * FROM sismos WHERE partial_content_hash = ? LIMIT 1",
         sismo.partial_content_hash
@@ -80,7 +72,7 @@ async fn try_insert_partial_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
         Ok(sismo_db) => {
             info!("Sismo already exists: {:?}, updating", sismo_db);
 
-            let _ = sqlx::query!(
+            let _ = query!(
                 "UPDATE sismos SET created = ?, lat = ?, long = ?, depth = ?, richter = ?, description = ?, location = ?, country = ?, content_hash = ? WHERE id = ?",
                 sismo.created,
                 sismo.lat,
@@ -97,7 +89,7 @@ async fn try_insert_partial_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
         Err(_) => {
             info!("Inserting sismo: {:?}", sismo);
 
-            sqlx::query!(
+            query!(
                 "INSERT INTO sismos (created, lat, long, depth, richter, location, country, content_hash, partial_content_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 sismo.created,
                 sismo.lat,
