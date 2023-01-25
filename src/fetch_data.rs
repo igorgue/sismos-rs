@@ -7,10 +7,12 @@ use sqlx::{Pool, Sqlite, query_as, query};
 use crate::ineter::get_data_from_api;
 use crate::models::{ParsedSismo, Sismo};
 
+/// Fetches the latest 5 sismos from the database
 pub async fn latest_5_sismos() -> Vec<Sismo> {
     do_latest_5_sismos(get_pool().await).await
 }
 
+/// Fetches data from the API and inserts it into the database
 pub async fn fetch_data() {
     do_fetch_data(get_pool().await).await
 }

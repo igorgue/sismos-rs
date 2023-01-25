@@ -49,6 +49,7 @@ pub struct ParsedSismo {
     pub partial_content_hash: String,
 }
 
+/// A sismo (earthquake) as a JSON response
 #[derive(Serialize, Debug)]
 pub struct SismoResponse {
     pub id: i64,
@@ -65,6 +66,7 @@ pub struct SismoResponse {
 }
 
 impl Sismo {
+    /// Convert a Sismo to a SismoResponse
     pub fn as_json_response(&self) -> SismoResponse {
         SismoResponse {
             id: self.id,

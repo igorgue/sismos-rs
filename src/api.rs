@@ -4,17 +4,20 @@ use urlencoding::decode;
 use crate::fetch_data::latest_5_sismos;
 use crate::models::{Sismo, SismoResponse};
 
+/// Gets latest 5 sismos from the database
 #[get("/")]
 async fn root() -> impl Responder {
     HttpResponse::Ok().json(to_json_response(latest_5_sismos().await))
 }
 
+/// Gets an AI response to a prompt
 #[get("/api")]
 async fn ai_response(prompt: String) -> impl Responder {
     // TODO: Add a real response
     HttpResponse::Ok().body(prompt)
 }
 
+/// Incomming message to whatsapp
 #[post("/whatsapp/incoming")]
 async fn whatsapp_incoming(message: String) -> impl Responder {
     HttpResponse::Ok()
@@ -22,6 +25,7 @@ async fn whatsapp_incoming(message: String) -> impl Responder {
         .body(to_whatsapp_xml_response(message))
 }
 
+/// Status message to whatsapp
 #[post("/whatsapp/status")]
 async fn whatsapp_status(_message: String) -> impl Responder {
     HttpResponse::Ok()
