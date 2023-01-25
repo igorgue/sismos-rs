@@ -45,7 +45,7 @@ fn parse_pre_item(pre: String) -> ParsedSismo {
         .replace(",", "")
         .trim()
         .to_string();
-    let content_hash = get_content_hash(pre.clone());
+    let content_hash = get_content_hash(pre.to_owned());
     let partial_content_hash =
         get_partial_content_hash(local_time, &lat, &long, &depth, &richter, &description);
 

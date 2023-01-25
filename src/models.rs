@@ -73,11 +73,11 @@ impl Sismo {
             long: self.long.unwrap(),
             depth: self.depth.unwrap(),
             richter: self.richter.unwrap(),
-            description: self.description.clone().unwrap_or(String::new()),
-            location: self.location.clone().unwrap(),
-            country: self.country.clone().unwrap(),
-            content_hash: self.content_hash.clone().unwrap(),
-            partial_content_hash: self.partial_content_hash.clone().unwrap(),
+            description: self.description.to_owned().unwrap_or(String::new()),
+            location: self.location.to_owned().unwrap(),
+            country: self.country.to_owned().unwrap(),
+            content_hash: self.content_hash.to_owned().unwrap(),
+            partial_content_hash: self.partial_content_hash.to_owned().unwrap(),
         }
     }
 }
