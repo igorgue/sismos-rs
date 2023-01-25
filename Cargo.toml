@@ -25,6 +25,7 @@ serde = { version = "1.0.152", features = ["derive"] }
 sha2 = "0.10.6"
 soup = "0.5.1"
 sqlx = { version = "0.6.2", features = ["sqlite", "runtime-actix-rustls", "chrono"] }
+urlencoding = "2.1.2"
 
 [dev-dependencies]
 wiremock = "0.5.17"

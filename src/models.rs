@@ -73,7 +73,7 @@ impl Sismo {
             long: self.long.unwrap(),
             depth: self.depth.unwrap(),
             richter: self.richter.unwrap(),
-            description: self.description.clone().unwrap_or("".to_string()),
+            description: self.description.clone().unwrap_or(String::new()),
             location: self.location.clone().unwrap(),
             country: self.country.clone().unwrap(),
             content_hash: self.content_hash.clone().unwrap(),

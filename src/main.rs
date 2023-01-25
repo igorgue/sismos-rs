@@ -8,7 +8,7 @@ use sismos::api::{ai_response, root, whatsapp_incoming, whatsapp_status};
 use sismos::fetch_data::fetch_data;
 
 const HOST: &str = "0.0.0.0";
-const PORT: u16 = 8080;
+const PORT: u16 = 1972;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
