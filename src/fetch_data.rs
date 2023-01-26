@@ -1,8 +1,9 @@
 use std::env;
 
+use futures::TryStreamExt;
 use log::info;
 use sqlx::sqlite::SqlitePoolOptions;
-use sqlx::{Pool, Sqlite, query_as, query};
+use sqlx::{query, query_as, Pool, Sqlite};
 
 use crate::ineter::get_data_from_api;
 use crate::models::{ParsedSismo, Sismo};
@@ -17,15 +18,26 @@ pub async fn fetch_data() {
     do_fetch_data(get_pool().await).await
 }
 
-pub async fn run_raw_sql_stmt(sql: &str) -> String {
+pub async fn run_sismo_sql_stmt(sql: &str) -> String {
     let pool = get_pool().await;
 
     info!("Executing query: {}!!!", sql);
 
-    match query(sql).execute(&pool).await {
-        Ok(result) => format!("Query executed successfully: {:?}", result),
-        Err(e) => format!("Error executing query: {:?}", e),
+    let mut results = String::new();
+    let mut rows = query_as::<_, Sismo>(sql).fetch(&pool);
+
+    let mut count = 0;
+    while let Some(row) = rows.try_next().await.unwrap() {
+        match <Sismo as TryInto<Sismo>>::try_into(row) {
+            Ok(sismo) => {
+                count += 1;
+                results.push_str(format!("#{}. {:?}\n", count, sismo).as_str());
+            }
+            Err(_) => (),
+        }
     }
+
+    results
 }
 
 async fn get_pool() -> Pool<Sqlite> {

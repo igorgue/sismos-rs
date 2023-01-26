@@ -1,5 +1,6 @@
 use chrono::{DateTime, NaiveDateTime, Utc};
 use serde::Serialize;
+use sqlx::FromRow;
 
 /// A sismo (earthquake) in the database
 ///
@@ -19,7 +20,7 @@ use serde::Serialize;
 /// 	partial_content_hash VARCHAR,
 /// 	PRIMARY KEY (id)
 /// );
-#[derive(Debug)]
+#[derive(Debug, FromRow)]
 pub struct Sismo {
     pub id: i64,
     pub created: Option<NaiveDateTime>,
