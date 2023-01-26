@@ -1,6 +1,7 @@
 use actix_web::{get, post, HttpResponse, Responder};
 use urlencoding::decode;
 
+use crate::bot::respond_with_ai;
 use crate::fetch_data::latest_5_sismos;
 use crate::models::{Sismo, SismoResponse};
 
@@ -13,8 +14,10 @@ async fn root() -> impl Responder {
 /// Gets an AI response to a prompt
 #[get("/api")]
 async fn ai_response(prompt: String) -> impl Responder {
-    // TODO: Add a real response
-    HttpResponse::Ok().body(prompt)
+    let encoded_prompt = decode(prompt.as_str()).expect("UTF-8");
+    let response = respond_with_ai(encoded_prompt.to_string()).await;
+
+    HttpResponse::Ok().body(response)
 }
 
 /// Incomming message to whatsapp
@@ -40,8 +43,8 @@ fn to_json_response(sismos: Vec<Sismo>) -> Vec<SismoResponse> {
         .collect()
 }
 
-fn to_whatsapp_xml_response(whatsapp_message: String) -> String {
-    let message = parse_twilio_whatsapp_message(whatsapp_message);
+fn to_whatsapp_xml_response(message: String) -> String {
+    let message = parse_twilio_whatsapp_message(message);
 
     format!(
         r#"<?xml version="1.0" encoding="UTF-8"?><Response><Message>{}</Message></Response>"#,
