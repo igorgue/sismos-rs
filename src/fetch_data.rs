@@ -17,6 +17,17 @@ pub async fn fetch_data() {
     do_fetch_data(get_pool().await).await
 }
 
+pub async fn run_raw_sql_stmt(sql: &str) -> String {
+    let pool = get_pool().await;
+
+    info!("Executing query: {}!!!", sql);
+
+    match query(sql).execute(&pool).await {
+        Ok(result) => format!("Query executed successfully: {:?}", result),
+        Err(e) => format!("Error executing query: {:?}", e),
+    }
+}
+
 async fn get_pool() -> Pool<Sqlite> {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 

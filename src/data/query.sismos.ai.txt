@@ -19,8 +19,8 @@ CREATE TABLE sismos (
 * user prompt can be in any human language you understand but likely it would be Spanish.
 * if limit not found limit the query to 5 results, always order by created desc
 * please do not allow any SQL injections.
-* please only generate select statements
-$extra_info
+* please only generate "SELECT *" statements
+
 Create a SQL query using Sqlite3 syntax using my table for user prompt:
 
 "$prompt"

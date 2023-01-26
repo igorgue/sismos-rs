@@ -1,9 +1,15 @@
-use actix_web::{get, post, HttpResponse, Responder};
+use actix_web::{get, post, web, HttpResponse, Responder};
+use serde::Deserialize;
 use urlencoding::decode;
 
 use crate::bot::respond_with_ai;
 use crate::fetch_data::latest_5_sismos;
 use crate::models::{Sismo, SismoResponse};
+
+#[derive(Debug, Deserialize)]
+struct AiPromptRequest {
+    prompt: String,
+}
 
 /// Gets latest 5 sismos from the database
 #[get("/")]
@@ -13,8 +19,8 @@ async fn root() -> impl Responder {
 
 /// Gets an AI response to a prompt
 #[get("/api")]
-async fn ai_response(prompt: String) -> impl Responder {
-    let encoded_prompt = decode(prompt.as_str()).expect("UTF-8");
+async fn ai_response(qs: web::Query<AiPromptRequest>) -> impl Responder {
+    let encoded_prompt = decode(qs.prompt.as_str()).expect("UTF-8");
     let response = respond_with_ai(encoded_prompt.to_string()).await;
 
     HttpResponse::Ok().body(response)

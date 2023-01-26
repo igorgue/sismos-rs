@@ -20,8 +20,9 @@ dotenvy = "0.15.6"
 env_logger = "0.10.0"
 hex = "0.4.3"
 log = "0.4.17"
-reqwest = "0.11.14"
+reqwest = { version = "0.11.14", features = ["json"] }
 serde = { version = "1.0.152", features = ["derive"] }
+serde_json = "1.0.91"
 sha2 = "0.10.6"
 soup = "0.5.1"
 sqlx = { version = "0.6.2", features = ["sqlite", "runtime-actix-rustls", "chrono"] }
