@@ -18,9 +18,15 @@ pub async fn respond_with_ai(message: String) -> String {
 
     info!("Raw AI SQL statement: '{}'!!!", raw_ai_sql_stmt);
 
-    let sql_stmt = raw_ai_sql_stmt.replace("\n\r", "").replace("\\n", " ").trim().to_string();
-    let sql_stmt = sql_stmt.replace("\r", "").replace("\n", " ").trim().to_string();
-    let sql_stmt = sql_stmt.strip_prefix("\"").unwrap().strip_suffix("\"").unwrap();
+    let sql_stmt = raw_ai_sql_stmt
+        .replace("\n\r", "")
+        .replace("\\n", " ");
+    let sql_stmt = sql_stmt
+        .strip_prefix("\"").unwrap_or(sql_stmt.as_str());
+    let sql_stmt = sql_stmt
+        .strip_suffix("\"").unwrap_or(sql_stmt)
+        .trim()
+        .to_string();
 
     let clean_sql_stmt = match sql_stmt.find("select") {
         Some(index) => sql_stmt[index..].to_string(),
