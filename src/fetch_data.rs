@@ -3,7 +3,7 @@ use std::env;
 use futures::TryStreamExt;
 use log::info;
 use sqlx::sqlite::SqlitePoolOptions;
-use sqlx::{query, query_as, Pool, Sqlite};
+use sqlx::{query, query_as, Pool, Row, Sqlite};
 
 use crate::ineter::get_data_from_api;
 use crate::models::{ParsedSismo, Sismo};
@@ -18,20 +18,32 @@ pub async fn fetch_data() {
     do_fetch_data(get_pool().await).await
 }
 
-pub async fn run_sismo_sql_stmt(sql: &str) -> String {
+pub async fn count_from_raw_sql(sql: &str) -> Result<i64, sqlx::Error> {
+    assert!(sql.to_uppercase().starts_with("SELECT COUNT"));
+
     let pool = get_pool().await;
 
     info!("Executing query: {}!!!", sql);
 
-    let mut results = String::new();
+    let count: i64 = query(sql).fetch_one(&pool).await?.get(0);
+
+    Ok(count)
+}
+
+pub async fn fetch_sismos_from_raw_sql(sql: &str) -> Vec<Sismo> {
+    assert!(sql.to_uppercase().starts_with("SELECT *"));
+
+    let pool = get_pool().await;
+
+    info!("Executing query: {}!!!", sql);
+
+    let mut results = Vec::new();
     let mut rows = query_as::<_, Sismo>(sql).fetch(&pool);
 
-    let mut count = 0;
     while let Some(row) = rows.try_next().await.unwrap() {
         match <Sismo as TryInto<Sismo>>::try_into(row) {
             Ok(sismo) => {
-                count += 1;
-                results.push_str(format!("#{}. {:?}\n", count, sismo).as_str());
+                results.push(sismo);
             }
             Err(_) => (),
         }

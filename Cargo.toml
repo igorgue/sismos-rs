@@ -14,20 +14,20 @@ path = "src/lib.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = "4.2.1"
-chrono = "0.4.23"
-dotenvy = "0.15.6"
-env_logger = "0.10.0"
-futures = "0.3.25"
-hex = "0.4.3"
-log = "0.4.17"
-reqwest = { version = "0.11.14", features = ["json"] }
-serde = { version = "1.0.152", features = ["derive"] }
-serde_json = "1.0.91"
-sha2 = "0.10.6"
-soup = "0.5.1"
-sqlx = { version = "0.6.2", features = ["sqlite", "runtime-actix-rustls", "chrono"] }
-urlencoding = "2.1.2"
+actix-web = "4.3"
+chrono = "0.4"
+dotenvy = "0.15"
+env_logger = "0.10"
+futures = "0.3"
+hex = "0.4"
+log = "0.4"
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+soup = "0.5"
+sqlx = { version = "0.6", features = ["sqlite", "runtime-actix-rustls", "chrono"] }
+urlencoding = "2.1"
 
 [dev-dependencies]
-wiremock = "0.5.17"
+wiremock = "0.5"

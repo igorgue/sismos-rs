@@ -1,11 +1,9 @@
-use std::env;
-use std::fs::File;
-use std::io::Read;
+use std::{env, fs::File, io::Read};
 
 use log::info;
 use serde_json::json;
 
-use crate::fetch_data::run_sismo_sql_stmt;
+use crate::fetch_data::{count_from_raw_sql, fetch_sismos_from_raw_sql};
 
 const OPENAI_API_ENDPOINT: &str = "https://api.openai.com/v1/engines/text-davinci-003/completions";
 
@@ -33,7 +31,34 @@ pub async fn respond_with_ai(message: String) -> String {
 
     info!("AI clean SQL statement: {}", clean_sql_stmt);
 
-    run_sismo_sql_stmt(clean_sql_stmt.as_str()).await
+    if clean_sql_stmt.to_uppercase().starts_with("SELECT COUNT") {
+        let count = count_from_raw_sql(clean_sql_stmt.as_str()).await.unwrap();
+
+        return format!("{} sismos encontrados", count);
+    } else {
+        let sismos = fetch_sismos_from_raw_sql(clean_sql_stmt.as_str()).await;
+
+        if sismos.len() > 0 {
+            let mut response = String::new();
+
+            for sismo in sismos {
+                response.push_str(
+                    format!(
+                        "{} - {}, {}, {}\n",
+                        sismo.created.unwrap(),
+                        sismo.richter.unwrap(),
+                        sismo.location.unwrap(),
+                        sismo.country.unwrap()
+                    )
+                    .as_str(),
+                );
+            }
+
+            return response;
+        }
+    }
+
+    String::from("No se encontraron sismos")
 }
 
 async fn do_request(prompt: String) -> Result<String, reqwest::Error> {
