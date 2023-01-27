@@ -30,6 +30,7 @@ pub async fn respond_with_ai(message: String) -> String {
     info!("Raw AI SQL statement: '{}'!!!", raw_ai_sql_stmt);
 
     let sql_stmt = raw_ai_sql_stmt.replace("\n\r", "").replace("\\n", " ");
+    let sql_stmt = sql_stmt.replace("\\", "");
     let sql_stmt = sql_stmt.strip_prefix("\"").unwrap_or(sql_stmt.as_str());
     let sql_stmt = sql_stmt
         .strip_suffix("\"")

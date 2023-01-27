@@ -31,7 +31,7 @@ async fn ai_response(qs: web::Query<AiPromptRequest>) -> impl Responder {
 async fn whatsapp_incoming(message: String) -> impl Responder {
     HttpResponse::Ok()
         .insert_header(("Content-Type", "application/xml; charset=utf-8"))
-        .body(to_whatsapp_xml_response(message))
+        .body(to_whatsapp_xml_response(message).await)
 }
 
 /// Status message to whatsapp
@@ -39,7 +39,7 @@ async fn whatsapp_incoming(message: String) -> impl Responder {
 async fn whatsapp_status(_message: String) -> impl Responder {
     HttpResponse::Ok()
         .insert_header(("Content-Type", "application/xml; charset=utf-8"))
-        .body(to_whatsapp_xml_response(String::new()))
+        .body(to_whatsapp_xml_response(String::new()).await)
 }
 
 fn to_json_response(sismos: Vec<Sismo>) -> Vec<SismoResponse> {
@@ -49,12 +49,17 @@ fn to_json_response(sismos: Vec<Sismo>) -> Vec<SismoResponse> {
         .collect()
 }
 
-fn to_whatsapp_xml_response(message: String) -> String {
+async fn to_whatsapp_xml_response(message: String) -> String {
     let message = parse_twilio_whatsapp_message(message);
+    let response = if message.is_empty() {
+        message
+    } else {
+        respond_with_ai(message).await
+    };
 
     format!(
         r#"<?xml version="1.0" encoding="UTF-8"?><Response><Message>{}</Message></Response>"#,
-        decode(message.as_str()).expect("UTF-8")
+        decode(response.as_str()).expect("UTF-8")
     )
     .to_string()
 }
