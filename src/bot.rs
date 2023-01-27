@@ -186,12 +186,7 @@ fn format_sismo(sismo: Sismo) -> String {
     format!(
         "{} {}: {} {}\n
         {}. {}",
-        country_abbr,
-        country_flag,
-        richter,
-        richter_emoji,
-        location,
-        time_ago
+        country_abbr, country_flag, richter, richter_emoji, location, time_ago
     )
 }
 
