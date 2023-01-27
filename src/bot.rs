@@ -1,5 +1,6 @@
 use std::{env, fs::File, io::Read};
 
+use chrono::{DateTime, Utc};
 use log::info;
 use serde_json::json;
 
@@ -9,6 +10,18 @@ const OPENAI_API_ENDPOINT: &str = "https://api.openai.com/v1/engines/text-davinc
 
 pub async fn respond_with_ai(message: String) -> String {
     let message = message.to_lowercase();
+
+    if message.contains("ayuda") || message.contains("help") {
+        return "Comandos: [ayuda], escala:\n\n
+        🌋: 0.0 - 2.9\n
+        🌋🌋: 3.0 - 3.9\n
+        🌋🌋🌋: 4.0 - 5.9\n
+        🌋🌋🌋🌋: 6.0 - 6.9\n
+        🌋🌋🌋🌋🌋: 7.0 - ...
+        "
+        .to_string();
+    }
+
     let value: serde_json::Value =
         serde_json::from_str(do_request(message).await.unwrap().as_str()).unwrap();
 
@@ -58,7 +71,7 @@ pub async fn respond_with_ai(message: String) -> String {
         }
     }
 
-    String::from("No se encontraron sismos")
+    String::from("No se encontraron sismos, intente con otra consulta")
 }
 
 async fn do_request(prompt: String) -> Result<String, reqwest::Error> {
@@ -80,6 +93,83 @@ async fn do_request(prompt: String) -> Result<String, reqwest::Error> {
         .await?;
 
     Ok(response.text().await?)
+}
+
+fn country_to_flag_emoji(country: &str) -> &'static str {
+    match country {
+        "Nicaragua" => "🇳🇮",
+        "Costa Rica" => "🇨🇷",
+        "Panama" => "🇵🇦",
+        "Panamá" => "🇵🇦",
+        "Honduras" => "🇭🇳",
+        "El Salvador" => "🇸🇻",
+        "Guatemala" => "🇬🇹",
+        "Mexico" => "🇲🇽",
+        "México" => "🇲🇽",
+        _ => "🌎",
+    }
+}
+
+fn country_to_abbr(country: &str) -> &'static str {
+    match country {
+        "Nicaragua" => "NI",
+        "Costa Rica" => "CR",
+        "Panama" => "PA",
+        "Panamá" => "PA",
+        "Honduras" => "HN",
+        "El Salvador" => "SV",
+        "Guatemala" => "GT",
+        "Mexico" => "MX",
+        "México" => "MX",
+        _ => "WW",
+    }
+}
+
+fn richter_to_emoji(richter: f32) -> &'static str {
+    if richter > 7.0 {
+        return "🌋🌋🌋🌋🌋";
+    }
+
+    if richter > 6.0 {
+        return "🌋🌋🌋🌋";
+    }
+
+    if richter > 5.0 {
+        return "🌋🌋🌋";
+    }
+
+    if richter > 4.0 {
+        return "🌋🌋";
+    }
+
+    if richter > 3.0 {
+        return "🌋";
+    }
+
+    "🌋"
+}
+
+fn datetime_to_time_ago_in_spanish(datetime: &DateTime<Utc>) -> String {
+    let now = Utc::now();
+    let diff = now.signed_duration_since(*datetime);
+
+    if diff.num_days() > 0 {
+        return format!("{} días", diff.num_days());
+    }
+
+    if diff.num_hours() > 0 {
+        return format!("{} horas", diff.num_hours());
+    }
+
+    if diff.num_minutes() > 0 {
+        return format!("{} minutos", diff.num_minutes());
+    }
+
+    if diff.num_seconds() > 0 {
+        return format!("{} segundos", diff.num_seconds());
+    }
+
+    String::from("ahora!")
 }
 
 fn get_ai_prompt(user_prompt: String) -> String {
