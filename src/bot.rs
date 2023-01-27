@@ -1,10 +1,11 @@
 use std::{env, fs::File, io::Read};
 
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Local, TimeZone, Utc};
 use log::info;
 use serde_json::json;
 
 use crate::fetch_data::{count_from_raw_sql, fetch_sismos_from_raw_sql};
+use crate::models::Sismo;
 
 const OPENAI_API_ENDPOINT: &str = "https://api.openai.com/v1/engines/text-davinci-003/completions";
 
@@ -51,27 +52,8 @@ pub async fn respond_with_ai(message: String) -> String {
     } else {
         let sismos = fetch_sismos_from_raw_sql(clean_sql_stmt.as_str()).await;
 
-        if sismos.len() > 0 {
-            let mut response = String::new();
-
-            for sismo in sismos {
-                response.push_str(
-                    format!(
-                        "{} - {}, {}, {}\n",
-                        sismo.created.unwrap(),
-                        sismo.richter.unwrap(),
-                        sismo.location.unwrap(),
-                        sismo.country.unwrap()
-                    )
-                    .as_str(),
-                );
-            }
-
-            return response;
-        }
+        return format_sismos(sismos);
     }
-
-    String::from("No se encontraron sismos, intente con otra consulta")
 }
 
 async fn do_request(prompt: String) -> Result<String, reqwest::Error> {
@@ -106,7 +88,7 @@ fn country_to_flag_emoji(country: &str) -> &'static str {
         "Guatemala" => "🇬🇹",
         "Mexico" => "🇲🇽",
         "México" => "🇲🇽",
-        _ => "🌎",
+        _ => "🌎", // Mr. Worldwide 😎
     }
 }
 
@@ -121,11 +103,11 @@ fn country_to_abbr(country: &str) -> &'static str {
         "Guatemala" => "GT",
         "Mexico" => "MX",
         "México" => "MX",
-        _ => "WW",
+        _ => "WW", // Mr. Worldwide 😎
     }
 }
 
-fn richter_to_emoji(richter: f32) -> &'static str {
+fn richter_to_emoji(richter: f64) -> &'static str {
     if richter > 7.0 {
         return "🌋🌋🌋🌋🌋";
     }
@@ -170,6 +152,47 @@ fn datetime_to_time_ago_in_spanish(datetime: &DateTime<Utc>) -> String {
     }
 
     String::from("ahora!")
+}
+
+fn format_sismos(sismos: Vec<Sismo>) -> String {
+    let mut response = String::new();
+    let header = "Sismos: \n\n";
+
+    response.push_str(header);
+    for sismo in sismos {
+        response.push_str(format_sismo(sismo).as_str());
+    }
+
+    let footer = "\n\nFuente: INETER (Nicaragua)";
+    response.push_str(footer);
+
+    response
+}
+
+fn format_sismo(sismo: Sismo) -> String {
+    let richter = sismo.richter.unwrap();
+    let richter_emoji = richter_to_emoji(richter);
+    let richter = format!("{:.1}", richter);
+
+    let location = sismo.location.unwrap();
+    let country = sismo.country.unwrap();
+    let country_flag = country_to_flag_emoji(country.as_str());
+    let country_abbr = country_to_abbr(country.as_str());
+
+    let created = sismo.created.unwrap();
+    let created = Local.from_local_datetime(&created);
+    let time_ago = datetime_to_time_ago_in_spanish(&DateTime::from(created.unwrap()));
+
+    format!(
+        "{} {}: {} {}\n
+        {}. {}",
+        country_abbr,
+        country_flag,
+        richter,
+        richter_emoji,
+        location,
+        time_ago
+    )
 }
 
 fn get_ai_prompt(user_prompt: String) -> String {
