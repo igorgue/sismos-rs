@@ -13,14 +13,13 @@ pub async fn respond_with_ai(message: String) -> String {
     let message = message.to_lowercase();
 
     if message.contains("ayuda") || message.contains("help") {
-        return "Comandos: [ayuda], escala:\n\n
-        🌋: 0.0 - 2.9\n
-        🌋🌋: 3.0 - 3.9\n
-        🌋🌋🌋: 4.0 - 5.9\n
-        🌋🌋🌋🌋: 6.0 - 6.9\n
-        🌋🌋🌋🌋🌋: 7.0 - ...
-        "
-        .to_string();
+        return "Comandos: [ayuda], escala:\n\n\
+        🌋: 0.0 - 2.9\n\
+        🌋🌋: 3.0 - 3.9\n\
+        🌋🌋🌋: 4.0 - 5.9\n\
+        🌋🌋🌋🌋: 6.0 - 6.9\n\
+        🌋🌋🌋🌋🌋: 7.0 - ..."
+            .to_string();
     }
 
     let value: serde_json::Value =
@@ -136,19 +135,19 @@ fn datetime_to_time_ago_in_spanish(datetime: &DateTime<Utc>) -> String {
     let diff = now.signed_duration_since(*datetime);
 
     if diff.num_days() > 0 {
-        return format!("{} días", diff.num_days());
+        return format!("hace {} días", diff.num_days());
     }
 
     if diff.num_hours() > 0 {
-        return format!("{} horas", diff.num_hours());
+        return format!("hace {} horas", diff.num_hours());
     }
 
     if diff.num_minutes() > 0 {
-        return format!("{} minutos", diff.num_minutes());
+        return format!("hace {} minutos", diff.num_minutes());
     }
 
     if diff.num_seconds() > 0 {
-        return format!("{} segundos", diff.num_seconds());
+        return format!("hace {} segundos", diff.num_seconds());
     }
 
     String::from("ahora!")
@@ -184,8 +183,7 @@ fn format_sismo(sismo: Sismo) -> String {
     let time_ago = datetime_to_time_ago_in_spanish(&DateTime::from(created.unwrap()));
 
     format!(
-        "{} {}: {} {}\n
-        {}. {}",
+        "{} {}: {} {}\n{}. {}\n",
         country_abbr, country_flag, richter, richter_emoji, location, time_ago
     )
 }
