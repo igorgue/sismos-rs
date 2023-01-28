@@ -20,7 +20,7 @@ use sqlx::FromRow;
 /// 	partial_content_hash VARCHAR,
 /// 	PRIMARY KEY (id)
 /// );
-#[derive(Debug, FromRow)]
+#[derive(Debug, Clone, FromRow)]
 pub struct Sismo {
     pub id: i64,
     pub created: Option<NaiveDateTime>,
@@ -66,21 +66,20 @@ pub struct SismoResponse {
     pub partial_content_hash: String,
 }
 
-impl Sismo {
-    /// Convert a Sismo to a SismoResponse
-    pub fn as_json_response(&self) -> SismoResponse {
+impl From<Sismo> for SismoResponse {
+    fn from(item: Sismo) -> Self {
         SismoResponse {
-            id: self.id,
-            created: self.created.unwrap().to_string(),
-            lat: self.lat.unwrap(),
-            long: self.long.unwrap(),
-            depth: self.depth.unwrap(),
-            richter: self.richter.unwrap(),
-            description: self.description.to_owned().unwrap_or(String::new()),
-            location: self.location.to_owned().unwrap(),
-            country: self.country.to_owned().unwrap(),
-            content_hash: self.content_hash.to_owned().unwrap(),
-            partial_content_hash: self.partial_content_hash.to_owned().unwrap(),
+            id: item.id,
+            created: item.created.unwrap().to_string(),
+            lat: item.lat.unwrap(),
+            long: item.long.unwrap(),
+            depth: item.depth.unwrap(),
+            richter: item.richter.unwrap(),
+            description: item.description.to_owned().unwrap_or(String::new()),
+            location: item.location.to_owned().unwrap(),
+            country: item.country.to_owned().unwrap(),
+            content_hash: item.content_hash.to_owned().unwrap(),
+            partial_content_hash: item.partial_content_hash.to_owned().unwrap(),
         }
     }
 }

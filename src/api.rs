@@ -43,10 +43,7 @@ async fn whatsapp_status(_message: String) -> impl Responder {
 }
 
 fn to_json_response(sismos: Vec<Sismo>) -> Vec<SismoResponse> {
-    sismos
-        .iter()
-        .map(|sismo| sismo.as_json_response())
-        .collect()
+    sismos.iter().map(|sismo| sismo.to_owned().into()).collect()
 }
 
 async fn to_whatsapp_xml_response(message: String) -> String {
