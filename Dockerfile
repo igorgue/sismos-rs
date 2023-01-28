@@ -28,6 +28,6 @@ USER app
 WORKDIR /app
 
 # Get compiled binaries from builder's cargo install directory
-COPY --from=builder /usr/local/cargo/bin/hello /app/hello
+COPY --from=builder /usr/local/cargo/bin/sismos /app/sismos
 
 # No CMD or ENTRYPOINT, see fly.toml with `cmd` override.

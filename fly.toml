@@ -1,6 +1,6 @@
-# fly.toml file generated for young-star-7034 on 2023-01-28T16:05:51-06:00
+# fly.toml file generated for sismos on 2023-01-28T16:10:12-06:00
 
-app = "young-star-7034"
+app = "sismos"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
