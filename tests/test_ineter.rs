@@ -64,7 +64,7 @@ async fn test_get_data_from_api() {
 
 fn get_test_content(filename: &str) -> String {
     let path = format!("tests/data/{}", filename);
-    let mut file = File::open(path).unwrap();
+    let mut file = File::open(path).expect(format!("File not found: {}", filename).as_str());
     let mut content = String::new();
 
     file.read_to_string(&mut content).unwrap();

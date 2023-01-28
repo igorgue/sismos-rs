@@ -6,7 +6,8 @@ use sismos::{api::root, models::SismoResponse};
 
 #[ctor::ctor]
 fn init() {
-    env::set_var("DATABASE_URL", "sqlite://tests/data/sismos.test.db");
+    let _ = std::fs::copy("tests/data/sismos.test.db", "tests/data/sismos.db");
+    env::set_var("DATABASE_URL", "sqlite://tests/data/sismos.db");
 }
 
 #[actix_web::test]
@@ -15,7 +16,5 @@ async fn test_root() {
     let req = test::TestRequest::get().uri("/").to_request();
     let resp: Vec<SismoResponse> = test::call_and_read_body_json(&app, req).await;
 
-    println!("{:?}", resp);
-
-    // assert_eq!(resp.status(), 200);
+    assert_eq!(resp.len(), 5);
 }
