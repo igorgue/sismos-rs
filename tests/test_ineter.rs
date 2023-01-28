@@ -17,25 +17,25 @@ fn test_parse_html() {
 
     let first = &items[0];
     assert_eq!(first.created.year(), 2022);
-    assert_eq!(first.created.month(), 12);
-    assert_eq!(first.created.day(), 4);
+    assert_eq!(first.created.month(), 11);
+    assert_eq!(first.created.day(), 24);
     assert_eq!(first.created.hour(), 22);
-    assert_eq!(first.created.minute(), 6);
-    assert_eq!(first.created.second(), 29);
-    assert_eq!(first.lat, "12.590");
-    assert_eq!(first.long, "-90.132");
-    assert_eq!(first.depth, "5");
-    assert_eq!(first.richter, "4.1");
+    assert_eq!(first.created.minute(), 30);
+    assert_eq!(first.created.second(), 01);
+    assert_eq!(first.lat, "12.914");
+    assert_eq!(first.long, "-88.963");
+    assert_eq!(first.depth, "31");
+    assert_eq!(first.richter, "2.9");
     assert_eq!(first.description, "C");
-    assert_eq!(first.location, "116 Km al sur de Acajutla");
+    assert_eq!(first.location, "41 Km al sur de Delta del Rio Lempa");
     assert_eq!(first.country, "El Salvador");
     assert_eq!(
         first.content_hash,
-        "617216bf36050c6911b92a9d492b7625fa1c13e5e8f971e5b7e1a5bd1bac2778"
+        "e59cff63fea49ed0876cec8bd8e6adb57e0e8bf8691e5b1a9c2024fbe1ba6e40"
     );
     assert_eq!(
         first.partial_content_hash,
-        "b3662eb31b134dfda89ea484a9724ba98652dcf68c02742b055a7d93eb879a18"
+        "a44bf084d01d30a297000ddebd56d5aee39ea89394d4561f67d634d05379a594"
     )
 }
 

@@ -21,7 +21,10 @@ pub fn parse_html(html_content: &str) -> Vec<ParsedSismo> {
     let soup = Soup::new(html_content);
     let pres = soup.tag("pre").find_all();
 
-    pres.map(|pre| parse_pre_item(pre.text())).collect()
+    let mut res: Vec<ParsedSismo> = pres.map(|pre| parse_pre_item(pre.text())).collect();
+    res.reverse();
+
+    res
 }
 
 fn parse_pre_item(pre: String) -> ParsedSismo {
