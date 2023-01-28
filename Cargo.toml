@@ -31,3 +31,4 @@ urlencoding = "2.1"
 
 [dev-dependencies]
 wiremock = "0.5"
+ctor = "0.1.26"

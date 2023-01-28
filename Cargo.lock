@@ -524,6 +524,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ctor"
+version = "0.1.26"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d2301688392eb071b0bf1a37be05c469d3cc4dbbd95df672fe28ab021e6a096"
+dependencies = [
+ "quote 1.0.23",
+ "syn 1.0.107",
+]
+
+[[package]]
 name = "cxx"
 version = "1.0.87"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2125,6 +2135,7 @@ version = "0.1.0"
 dependencies = [
  "actix-web",
  "chrono",
+ "ctor",
  "dotenvy",
  "env_logger",
  "futures",
