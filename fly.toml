@@ -8,7 +8,7 @@ kill_timeout = 5
 cmd = "./sismos"
 
 [env]
-DATABASE_URL = "sqlite:///sismos.db"
+DATABASE_URL = "sqlite://sismos.db"
 PORT = 1972
 HOST = "0.0.0.0"
 
