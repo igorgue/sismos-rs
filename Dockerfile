@@ -21,6 +21,8 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 # Runtime image
 FROM debian:bullseye-slim
 
+RUN apt-get update && apt-get install -y libssl-dev
+
 # Run as "app" user
 RUN useradd -ms /bin/bash app
 
