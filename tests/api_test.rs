@@ -13,7 +13,7 @@ fn init() {
 async fn test_root() {
     let app = test::init_service(App::new().service(root)).await;
     let req = test::TestRequest::get().uri("/").to_request();
-    let resp = test::call_and_read_body(&app, req).await;
+    let resp: Vec<SismoResponse> = test::call_and_read_body_json(&app, req).await;
 
     println!("{:?}", resp);
 

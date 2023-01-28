@@ -1,5 +1,5 @@
 use chrono::{DateTime, NaiveDateTime, Utc};
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
 use sqlx::FromRow;
 
 /// A sismo (earthquake) in the database
@@ -51,7 +51,7 @@ pub struct ParsedSismo {
 }
 
 /// A sismo (earthquake) as a JSON response
-#[derive(Serialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SismoResponse {
     pub id: i64,
     pub created: String,
@@ -75,7 +75,7 @@ impl From<Sismo> for SismoResponse {
             long: item.long.unwrap(),
             depth: item.depth.unwrap(),
             richter: item.richter.unwrap(),
-            description: item.description.to_owned().unwrap_or(String::new()),
+            description: item.description.to_owned().unwrap(),
             location: item.location.to_owned().unwrap(),
             country: item.country.to_owned().unwrap(),
             content_hash: item.content_hash.to_owned().unwrap(),

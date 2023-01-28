@@ -127,12 +127,13 @@ async fn try_insert_partial_sismo(pool: &Pool<Sqlite>, sismo: ParsedSismo) {
             info!("Inserting sismo: {:?}", sismo);
 
             query!(
-                "INSERT INTO sismos (created, lat, long, depth, richter, location, country, content_hash, partial_content_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO sismos (created, lat, long, depth, richter, description, location, country, content_hash, partial_content_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 sismo.created,
                 sismo.lat,
                 sismo.long,
                 sismo.depth,
                 sismo.richter,
+                sismo.description,
                 sismo.location,
                 sismo.country,
                 sismo.content_hash,
