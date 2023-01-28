@@ -27,6 +27,11 @@ RUN useradd -ms /bin/bash app
 USER app
 WORKDIR /app
 
+COPY . /app
+
+# create empty .env file
+RUN touch .env
+
 # Get compiled binaries from builder's cargo install directory
 COPY --from=builder /usr/local/cargo/bin/sismos /app/sismos
 

@@ -1,37 +1,36 @@
-# fly.toml file generated for sismos on 2023-01-28T16:10:12-06:00
-
 app = "sismos"
+
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
-
-[env]
 
 [experimental]
-  auto_rollback = true
+# required because we can't infer your binary's name
+cmd = "./sismos"
+
+[env]
+DATABASE_URL = "sqlite:///sismos.db"
+PORT = 1972
+HOST = "0.0.0.0"
 
 [[services]]
-  http_checks = []
-  internal_port = 8080
-  processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
+internal_port = 1972
+protocol = "tcp"
 
-  [[services.ports]]
-    force_https = true
-    handlers = ["http"]
-    port = 80
+[services.concurrency]
+hard_limit = 25
+soft_limit = 20
 
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
+[[services.ports]]
+handlers = ["http"]
+port = "80"
 
-  [[services.tcp_checks]]
-    grace_period = "1s"
-    interval = "15s"
-    restart_limit = 0
-    timeout = "2s"
+[[services.ports]]
+handlers = ["tls", "http"]
+port = "443"
+
+[[services.tcp_checks]]
+grace_period = "1s"
+interval = "15s"
+port = "1972"
+restart_limit = 6
+timeout = "2s"
