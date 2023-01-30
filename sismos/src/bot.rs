@@ -191,7 +191,7 @@ fn format_sismo(sismo: Sismo) -> String {
 
 fn get_ai_prompt(user_prompt: String) -> String {
     let mut file =
-        File::open("src/data/query.sismos.ai.txt").expect("query.sismos.ai.txt not found");
+        File::open("sismos/src/data/query.sismos.ai.txt").expect("query.sismos.ai.txt not found");
 
     let mut content = String::new();
 

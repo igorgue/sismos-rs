@@ -20,7 +20,7 @@ async fn main() -> std::io::Result<()> {
 
     let args: Vec<String> = env::args().collect();
 
-    if args.len() >= 2 {
+    if args.len() >= 3 {
         return handle_args(args).await;
     }
 
@@ -48,9 +48,9 @@ async fn main() -> std::io::Result<()> {
 }
 
 async fn handle_args(args: Vec<String>) -> std::io::Result<()> {
-    info!("Args: {:?}", &args[1..]);
+    info!("Args: {:?}", &args[2..]);
 
-    if args[1] == "fetch-data" {
+    if args[2] == "fetch-data" {
         fetch_data().await;
     } else {
         info!("Invalid argument: {}", args[1]);
