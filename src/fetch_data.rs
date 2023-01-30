@@ -18,14 +18,14 @@ pub async fn fetch_data() {
     do_fetch_data(get_pool().await).await
 }
 
-pub async fn count_from_raw_sql(sql: &str) -> Result<i64, sqlx::Error> {
+pub async fn result_from_raw_sql(sql: &str) -> Result<String, sqlx::Error> {
     assert!(sql.to_uppercase().starts_with("SELECT COUNT"));
 
     let pool = get_pool().await;
 
     info!("Executing query: {}!!!", sql);
 
-    let count: i64 = query(sql).fetch_one(&pool).await?.get(0);
+    let count: String = query(sql).fetch_one(&pool).await?.get(0);
 
     Ok(count)
 }

@@ -4,7 +4,7 @@ use chrono::{DateTime, Local, TimeZone, Utc};
 use log::info;
 use serde_json::json;
 
-use crate::fetch_data::{count_from_raw_sql, fetch_sismos_from_raw_sql};
+use crate::fetch_data::{fetch_sismos_from_raw_sql, result_from_raw_sql};
 use crate::models::Sismo;
 
 const OPENAI_API_ENDPOINT: &str = "https://api.openai.com/v1/engines/text-davinci-003/completions";
@@ -45,14 +45,14 @@ pub async fn respond_with_ai(message: String) -> String {
 
     info!("AI clean SQL statement: {}", clean_sql_stmt);
 
-    if clean_sql_stmt.to_uppercase().starts_with("SELECT COUNT") {
-        let count = count_from_raw_sql(clean_sql_stmt.as_str()).await.unwrap();
-
-        return format!("{} sismos encontrados", count);
-    } else {
+    if clean_sql_stmt.to_uppercase().starts_with("SELECT *") {
         let sismos = fetch_sismos_from_raw_sql(clean_sql_stmt.as_str()).await;
 
-        return format_sismos(sismos);
+        format_sismos(sismos)
+    } else {
+        let result = result_from_raw_sql(clean_sql_stmt.as_str()).await.unwrap();
+
+        format!("Respuesta: {}.", result)
     }
 }
 
