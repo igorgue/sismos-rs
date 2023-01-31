@@ -7,19 +7,19 @@ use sismos::fetch_data::latest_5_sismos;
 use sismos::models::{Sismo, SismoResponse};
 
 #[derive(Debug, Deserialize)]
-struct AiPromptRequest {
+pub struct AiPromptRequest {
     prompt: String,
 }
 
 /// Gets latest 5 sismos from the database
 #[get("/")]
-async fn root() -> impl Responder {
+pub async fn root() -> impl Responder {
     HttpResponse::Ok().json(to_json_response(latest_5_sismos().await))
 }
 
 /// Gets an AI response to a prompt
 #[get("/api")]
-async fn ai_response(qs: web::Query<AiPromptRequest>) -> impl Responder {
+pub async fn ai_response(qs: web::Query<AiPromptRequest>) -> impl Responder {
     let encoded_prompt = decode(qs.prompt.as_str()).expect("UTF-8");
     let response = respond_with_ai(encoded_prompt.to_string()).await;
 
@@ -28,7 +28,7 @@ async fn ai_response(qs: web::Query<AiPromptRequest>) -> impl Responder {
 
 /// Incomming message to whatsapp
 #[post("/whatsapp/incoming")]
-async fn whatsapp_incoming(message: String) -> impl Responder {
+pub async fn whatsapp_incoming(message: String) -> impl Responder {
     HttpResponse::Ok()
         .insert_header(("Content-Type", "application/xml; charset=utf-8"))
         .body(to_whatsapp_xml_response(message).await)
@@ -36,7 +36,7 @@ async fn whatsapp_incoming(message: String) -> impl Responder {
 
 /// Status message to whatsapp
 #[post("/whatsapp/status")]
-async fn whatsapp_status(_message: String) -> impl Responder {
+pub async fn whatsapp_status(_message: String) -> impl Responder {
     HttpResponse::Ok()
         .insert_header(("Content-Type", "application/xml; charset=utf-8"))
         .body(to_whatsapp_xml_response(String::new()).await)

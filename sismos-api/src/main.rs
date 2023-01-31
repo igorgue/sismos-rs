@@ -4,9 +4,7 @@ use actix_web::{middleware, App, HttpServer};
 use dotenvy;
 use log::info;
 
-mod api;
-
-use api::{ai_response, root, whatsapp_incoming, whatsapp_status};
+use sismos_api::api::{ai_response, root, whatsapp_incoming, whatsapp_status};
 
 const HOST: &str = "0.0.0.0";
 const PORT: u16 = 1972;

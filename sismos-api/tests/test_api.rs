@@ -1,6 +1,8 @@
 use actix_web::{test, App};
 use ctor;
-use sismos::{api::root, models::SismoResponse};
+use sismos::models::SismoResponse;
+
+use sismos_api::api::root;
 
 mod utils;
 
