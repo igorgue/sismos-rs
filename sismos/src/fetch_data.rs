@@ -53,7 +53,7 @@ pub async fn fetch_sismos_from_raw_sql(sql: &str) -> Vec<Sismo> {
 }
 
 async fn get_pool() -> Pool<Sqlite> {
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let database_url = env::var("DATABASE_URL").unwrap_or(String::from("sqlite://database/sismos.db"));
 
     info!("Connecting to {}", database_url);
 
