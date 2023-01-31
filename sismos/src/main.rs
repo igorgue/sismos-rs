@@ -22,6 +22,8 @@ async fn main() -> std::io::Result<()> {
 
 
     if args.len() >= 2 {
+        info!("Args: {:?}", args);
+
         return handle_arg(args).await;
     }
 
@@ -50,7 +52,8 @@ async fn main() -> std::io::Result<()> {
 
 async fn handle_arg(args: Vec<String>) -> std::io::Result<()> {
     let last_arg = args.last().unwrap();
-    info!("Arg: {:?}", args);
+
+    info!("Arg: {:?}", last_arg);
 
     if last_arg == "fetch-data" {
         fetch_data().await;

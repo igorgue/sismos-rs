@@ -1,2 +1,2 @@
 [workspace]
-members = ["sismos", "sismos-api"]
+members = ["sismos", "sismos-api", "sismos-web"]
