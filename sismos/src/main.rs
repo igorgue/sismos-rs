@@ -20,8 +20,9 @@ async fn main() -> std::io::Result<()> {
 
     let args: Vec<String> = env::args().collect();
 
-    if args.len() >= 3 {
-        return handle_args(args).await;
+
+    if args.len() >= 2 {
+        return handle_arg(args).await;
     }
 
     let is_ssl = env::var("SSL").is_ok();
@@ -47,13 +48,14 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
-async fn handle_args(args: Vec<String>) -> std::io::Result<()> {
-    info!("Args: {:?}", &args[2..]);
+async fn handle_arg(args: Vec<String>) -> std::io::Result<()> {
+    let last_arg = args.last().unwrap();
+    info!("Arg: {:?}", args);
 
-    if args[2] == "fetch-data" {
+    if last_arg == "fetch-data" {
         fetch_data().await;
     } else {
-        info!("Invalid argument: {}", args[1]);
+        info!("Invalid argument: {}", last_arg);
     }
 
     Ok(())
