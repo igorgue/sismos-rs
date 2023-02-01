@@ -64,7 +64,7 @@ impl Component for App {
                 </p>
 
                 // Display the current date and time the page was rendered
-                <p class="text-red-500">
+                <p class="text-3xl font-bold underline">
                     { "Rendered: " }
                     { String::from(Date::new_0().to_string()) }
                 </p>
