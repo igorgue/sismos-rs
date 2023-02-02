@@ -1,5 +1,4 @@
 #[allow(unused_unsafe)]
-
 use gloo::console;
 use js_sys::Date;
 use yew::{html, Component, Context, Html};
@@ -39,35 +38,31 @@ impl Component for App {
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         html! {
-            <div>
-                <div class="panel">
-                    // A button to send the Increment message
-                    <button class="button" onclick={ctx.link().callback(|_| Msg::Increment)}>
-                        { "+1" }
-                    </button>
+            <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+              <div class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+                <div class="mx-auto max-w-md space-x-8">
+                  <div class="flex flex-row justify-center space-x-4">
+                    <button class="h-10 w-12 rounded-lg bg-gray-100 shadow" onclick={ctx.link().callback(|_| Msg::Increment)}>{ "+1" }</button>
 
-                    // A button to send the Decrement message
-                    <button onclick={ctx.link().callback(|_| Msg::Decrement)}>
-                        { "-1" }
-                    </button>
+                    <button class="h-10 w-12 rounded-lg bg-gray-100 shadow" onclick={ctx.link().callback(|_| Msg::Decrement)}>{ "-1" }</button>
 
-                    // A button to send two Increment messages
-                    <button onclick={ctx.link().batch_callback(|_| vec![Msg::Increment, Msg::Increment])}>
-                        { "+1, +1" }
-                    </button>
+                    <button class="h-10 w-20 rounded-lg bg-gray-100 shadow" onclick={ctx.link().batch_callback(|_| vec![Msg::Increment, Msg::Increment])}>{ "+2" }</button>
+                  </div>
 
+                  <div class="flex flex-row justify-center space-x-4 pt-5">
+                    <a href="#" class="block max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                      <h5 class="mb-2 flex flex-row justify-center text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{ self.value }</h5>
+                    </a>
+                  </div>
+
+                  <div class="w-50 flex flex-row justify-end pt-5 text-base leading-7">
+                    <p>
+                      { "Rendered: " }
+                      { String::from(Date::new_0().to_string()) }
+                    </p>
+                  </div>
                 </div>
-
-                // Display the current value of the counter
-                <p class="counter">
-                    { self.value }
-                </p>
-
-                // Display the current date and time the page was rendered
-                <p class="text-3xl font-bold underline">
-                    { "Rendered: " }
-                    { String::from(Date::new_0().to_string()) }
-                </p>
+              </div>
             </div>
         }
     }
