@@ -2479,6 +2479,7 @@ dependencies = [
  "gloo",
  "js-sys",
  "wasm-bindgen",
+ "web-sys",
  "yew",
 ]
 

@@ -1,33 +1,33 @@
-#[allow(unused_unsafe)]
-// use js_sys::Date;
-use yew::{html, Component, Context, Html};
-pub enum Msg {
-    Increment,
-    Decrement,
-}
+use wasm_bindgen::JsCast;
+use web_sys::HtmlInputElement;
+use yew::prelude::*;
 
-pub struct App {
-    input: String, // This will store the counter value
-    output: String,
-}
-
-impl Component for App {
-    type Message = Msg;
-    type Properties = ();
-
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            input: String::from("Ultimos sismos en Chinandega"),
-            output: String::from("Sismos AI: HOLA"),
+#[function_component]
+fn App() -> Html {
+    let prompt = use_state(|| "".to_string());
+    let message = use_state(|| "???".to_string());
+    let onclick = {
+        let message = message.clone();
+        move |_| {
+            message.set("World".to_string());
         }
-    }
+    };
+    let oninput = {
+        let prompt = prompt.clone();
 
-    fn view(&self, _ctx: &Context<Self>) -> Html {
-        html! {
-            <div>
-                <input type="text" value={ self.input.as_str() } />
-            </div>
+        move |e: InputEvent| {
+            let input: HtmlInputElement = e.target().unwrap().dyn_into().unwrap();
+
+            prompt.set(input.value());
         }
+    };
+
+    html! {
+        <div>
+            <input type="text" {oninput} />
+            <button {onclick}>{ "Send" }</button>
+            <p class="italic">{ message.to_string() }</p>
+        </div>
     }
 }
 
