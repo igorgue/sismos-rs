@@ -4,14 +4,18 @@ use yew::prelude::*;
 
 #[function_component]
 fn App() -> Html {
-    let prompt = use_state(|| "".to_string());
-    let message = use_state(|| "???".to_string());
+    let prompt = use_state(|| String::new());
+    let message = use_state(|| String::new());
+
     let onclick = {
+        let prompt = prompt.clone();
         let message = message.clone();
+
         move |_| {
-            message.set("World".to_string());
+            message.set(prompt.to_string());
         }
     };
+
     let oninput = {
         let prompt = prompt.clone();
 
