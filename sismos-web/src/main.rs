@@ -1,3 +1,5 @@
+﻿use futures::executor::block_on;
+use sismos::bot::respond_with_ai;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
@@ -12,7 +14,7 @@ fn App() -> Html {
         let message = message.clone();
 
         move |_| {
-            message.set(prompt.to_string());
+            message.set(block_on(respond_with_ai(prompt.to_string())));
         }
     };
 
