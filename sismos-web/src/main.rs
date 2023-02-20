@@ -1,6 +1,4 @@
-﻿use futures::executor::block_on;
-use sismos::bot::respond_with_ai;
-use wasm_bindgen::JsCast;
+﻿use wasm_bindgen::JsCast;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 
@@ -14,17 +12,19 @@ fn App() -> Html {
         let message = message.clone();
 
         move |_| {
-            message.set(block_on(respond_with_ai(prompt.to_string())));
+            message.set(prompt.to_string());
         }
     };
 
     let oninput = {
         let prompt = prompt.clone();
 
-        move |e: InputEvent| {
-            let input: HtmlInputElement = e.target().unwrap().dyn_into().unwrap();
-
-            prompt.set(input.value());
+        move |e: InputEvent| match e.target() {
+            Some(target) => match target.dyn_into::<HtmlInputElement>() {
+                Ok(input) => prompt.set(input.value()),
+                Err(_) => {}
+            },
+            None => {}
         }
     };
 

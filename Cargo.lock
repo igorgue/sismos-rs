@@ -2476,10 +2476,7 @@ dependencies = [
 name = "sismos-web"
 version = "0.1.0"
 dependencies = [
- "futures",
  "gloo",
- "js-sys",
- "sismos",
  "wasm-bindgen",
  "web-sys",
  "yew",
