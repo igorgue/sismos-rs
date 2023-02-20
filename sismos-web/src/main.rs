@@ -19,12 +19,9 @@ fn App() -> Html {
     let oninput = {
         let prompt = prompt.clone();
 
-        move |e: InputEvent| match e.target() {
-            Some(target) => match target.dyn_into::<HtmlInputElement>() {
-                Ok(input) => prompt.set(input.value()),
-                Err(_) => {}
-            },
-            None => {}
+        move |e: InputEvent| {
+            let input: HtmlInputElement = e.target().unwrap().dyn_into().unwrap();
+            prompt.set(input.value());
         }
     };
 
