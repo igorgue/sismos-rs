@@ -85,4 +85,3 @@ fn parse_twilio_whatsapp_message(message: String) -> String {
 
     return String::new();
 }
-

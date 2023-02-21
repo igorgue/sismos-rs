@@ -1,18 +1,34 @@
 ﻿use wasm_bindgen::JsCast;
 use web_sys::HtmlInputElement;
-use yew::prelude::*;
+use yew::{platform::spawn_local, prelude::*};
 
 #[function_component]
 fn App() -> Html {
     let prompt = use_state(|| String::new());
     let message = use_state(|| String::new());
+    // let api_endpoint = env!("API_ENDPOINT", "API_ENDPOINT is not set");
+    let api_endpoint = "http://0.0.0.0:1972";
 
     let onclick = {
         let prompt = prompt.clone();
         let message = message.clone();
 
         move |_| {
-            message.set(prompt.to_string());
+            let response = String::new();
+
+            spawn_local(async move {
+                response =
+                    reqwest_wasm::get(format!("{}/api?prompt={}", api_endpoint, "test").as_str())
+                        .await
+                        .unwrap()
+                        .text()
+                        .await
+                        .unwrap();
+
+                // message.set(response);
+            });
+
+            message.set(response);
         }
     };
 

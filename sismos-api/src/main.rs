@@ -9,7 +9,6 @@ use sismos_api::api::{ai_response, root, whatsapp_incoming, whatsapp_status};
 const HOST: &str = "0.0.0.0";
 const PORT: u16 = 1972;
 
-/// Starts the server or with an argument `fetch-data` to fetch data from the API
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenvy::dotenv().unwrap();
