@@ -11,7 +11,7 @@ const PORT: u16 = 1972;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenvy::dotenv().unwrap();
+    dotenvy::dotenv().unwrap_or_default();
     env_logger::init_from_env::<_>(env_logger::Env::default().default_filter_or("info"));
 
     let is_ssl = env::var("SSL").is_ok();
