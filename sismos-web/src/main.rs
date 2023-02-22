@@ -1,28 +1,28 @@
-﻿use wasm_bindgen::{JsCast, JsValue};
-use wasm_bindgen_futures::JsFuture;
-use web_sys::{HtmlInputElement, Request, Response};
-use yew::prelude::*;
+﻿use gloo_net::http::Request;
+use wasm_bindgen::JsCast;
+use web_sys::HtmlInputElement;
+use yew::{platform::spawn_local, prelude::*};
 
-async fn _ai_response(prompt: String) -> Result<String, JsValue> {
-    let url = format!("http://0.0.0.0:1972/api?prompt={}", prompt);
-    let mut opts = web_sys::RequestInit::new();
+pub fn ai_response(prompt: String, ai_cb: Callback<AttrValue>) {
+    spawn_local(async move {
+        let url = format!("http://0.0.0.0:1972/api?prompt={}", prompt);
 
-    opts.method("GET");
-    opts.mode(web_sys::RequestMode::Cors);
+        let response = Request::get(url.as_str())
+            .send()
+            .await
+            .unwrap()
+            .text()
+            .await
+            .unwrap();
 
-    let request = Request::new_with_str_and_init(url.as_str(), &opts)?;
-
-    let window = gloo::utils::window();
-    let resp_value = JsFuture::from(window.fetch_with_request(&request)).await?;
-    let resp: Response = resp_value.dyn_into().unwrap();
-
-    let text = JsFuture::from(resp.text()?).await?;
-    Ok(text.as_string().unwrap())
+        ai_cb.emit(AttrValue::from(response));
+    });
 }
 
 pub enum Msg {
     Send,
     Input(String),
+    AIResponse(AttrValue),
 }
 
 pub struct App {
@@ -41,11 +41,16 @@ impl Component for App {
         }
     }
 
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
-            Msg::Send => {}
+            Msg::Send => {
+                ai_response(self.prompt.clone(), ctx.link().callback(Msg::AIResponse));
+            }
             Msg::Input(prompt) => {
                 self.prompt = prompt;
+            }
+            Msg::AIResponse(response) => {
+                self.message = response.to_string();
             }
         }
         true
