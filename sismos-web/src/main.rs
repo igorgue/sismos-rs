@@ -3,7 +3,7 @@ use wasm_bindgen_futures::JsFuture;
 use web_sys::{HtmlInputElement, Request, Response};
 use yew::prelude::*;
 
-async fn ai_response(prompt: String) -> Result<String, JsValue> {
+async fn _ai_response(prompt: String) -> Result<String, JsValue> {
     let url = format!("http://0.0.0.0:1972/api?prompt={}", prompt);
     let mut opts = web_sys::RequestInit::new();
 
@@ -20,36 +20,51 @@ async fn ai_response(prompt: String) -> Result<String, JsValue> {
     Ok(text.as_string().unwrap())
 }
 
-#[function_component]
-fn App() -> Html {
-    let prompt = use_state(|| String::new());
-    let message = use_state(|| String::new());
+pub enum Msg {
+    Send,
+    Input(String),
+}
 
-    let onclick = {
-        let prompt = prompt.clone();
-        let message = message.clone();
+pub struct App {
+    prompt: String,
+    message: String,
+}
 
-        move |_| {
-            message.set(prompt.to_string());
+impl Component for App {
+    type Message = Msg;
+    type Properties = ();
+
+    fn create(_ctx: &Context<Self>) -> Self {
+        Self {
+            prompt: String::new(),
+            message: String::new(),
         }
-    };
+    }
 
-    let oninput = {
-        let prompt = prompt.clone();
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        match msg {
+            Msg::Send => {}
+            Msg::Input(prompt) => {
+                self.prompt = prompt;
+            }
+        }
+        true
+    }
 
-        move |e: InputEvent| {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let onclick = ctx.link().callback(|_| Msg::Send);
+        let oninput = ctx.link().callback(|e: InputEvent| {
             let input: HtmlInputElement = e.target().unwrap().dyn_into().unwrap();
-            prompt.set(input.value());
-        }
-    };
+            Msg::Input(input.value())
+        });
 
-    html! {
-        <div>
-            <input type="text" {oninput} />
-            // <button {onclick}>{ "Send" }</button>
-            <button onclick={ onclick }>{ "Send" }</button>
-            <p class="italic">{ message.to_string() }</p>
-        </div>
+        html! {
+            <div>
+                <input type="text" {oninput} />
+                <button {onclick}>{ "Send" }</button>
+                <p class="italic">{ self.message.to_string() }</p>
+            </div>
+        }
     }
 }
 
