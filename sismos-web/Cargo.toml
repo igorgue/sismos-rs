@@ -8,6 +8,6 @@ edition = "2021"
 [dependencies]
 yew = { version = "0.20.0", features = ["csr"]}
 wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
 web-sys = "0.3"
 gloo = "0.8"
-reqwest-wasm = "0.11"
