@@ -1,5 +1,6 @@
 use std::env;
 
+use actix_cors::Cors;
 use actix_web::{middleware, App, HttpServer};
 use dotenvy;
 use log::info;
@@ -26,11 +27,12 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .wrap(Cors::permissive())
+            .wrap(middleware::Logger::default())
             .service(root)
             .service(ai_response)
             .service(whatsapp_incoming)
             .service(whatsapp_status)
-            .wrap(middleware::Logger::default())
     })
     .bind((host, port))?
     .run()

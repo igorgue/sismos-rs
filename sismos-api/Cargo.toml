@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 sismos = { path = "../sismos" }
 actix-web = "4.3"
+actix-cors = "0.6"
 chrono = "0.4"
 dotenvy = "0.15"
 env_logger = "0.10"

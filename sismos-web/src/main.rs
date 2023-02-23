@@ -67,7 +67,7 @@ impl Component for App {
             <div>
                 <input type="text" {oninput} />
                 <button {onclick}>{ "Send" }</button>
-                <p class="italic">{ self.message.to_string() }</p>
+                <pre>{ self.message.to_string() }</pre>
             </div>
         }
     }
