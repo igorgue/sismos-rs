@@ -1,13 +1,13 @@
-use std::{env, fs::File, io::Read};
+use std::env;
 
 use chrono::{DateTime, Local, TimeZone, Utc};
 use log::info;
 use serde_json::json;
 
 use crate::fetch_data::{fetch_sismos_from_raw_sql, result_from_raw_sql};
-use crate::models::Sismo;
+use crate::models::{ChatGPTMessage, Sismo};
 
-const OPENAI_API_ENDPOINT: &str = "https://api.openai.com/v1/engines/text-davinci-003/completions";
+const OPENAI_API_ENDPOINT: &str = "https://api.openai.com/v1/chat/completions";
 
 pub async fn respond_with_ai(message: String) -> String {
     let message = message.to_lowercase();
@@ -25,7 +25,7 @@ pub async fn respond_with_ai(message: String) -> String {
     let value: serde_json::Value =
         serde_json::from_str(do_request(message).await.unwrap().as_str()).unwrap();
 
-    let raw_ai_sql_stmt = value["choices"][0]["text"].to_string();
+    let raw_ai_sql_stmt = value["choices"][0]["message"]["content"].to_string();
 
     info!("Raw AI SQL statement: '{}'!!!", raw_ai_sql_stmt);
 
@@ -62,9 +62,8 @@ async fn do_request(prompt: String) -> Result<String, reqwest::Error> {
     let api_token = env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY is not set");
     let client = reqwest::Client::new();
     let params = json!({
-        "prompt": get_ai_prompt(prompt),
-        "temperature": 0.7,
-        "max_tokens": 50
+        "model": "gpt-3.5-turbo",
+        "messages": ChatGPTMessage::get_messages_prompt(prompt.as_str()),
     });
     let response = client
         .post(OPENAI_API_ENDPOINT)
@@ -187,19 +186,4 @@ fn format_sismo(sismo: Sismo) -> String {
         "{} {}: {} {}\n{}. {}\n",
         country_abbr, country_flag, richter, richter_emoji, location, time_ago
     )
-}
-
-fn get_ai_prompt(user_prompt: String) -> String {
-    let mut file =
-        File::open("sismos/src/data/query.sismos.ai.txt").expect("query.sismos.ai.txt not found");
-
-    let mut content = String::new();
-
-    file.read_to_string(&mut content).unwrap();
-
-    let content = content.replace("$prompt", user_prompt.as_str());
-
-    info!("AI prompt: {}", content.as_str());
-
-    content
 }

@@ -1,5 +1,7 @@
+use std::{fs::File, io::Read};
+
 use chrono::{DateTime, NaiveDateTime, Utc};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
 /// A sismo (earthquake) in the database
@@ -66,7 +68,40 @@ pub struct SismoResponse {
     pub partial_content_hash: String,
 }
 
+/// A data structure of ChatGPT message
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ChatGPTMessage {
+    pub role: String,
+    pub content: String,
+}
+
+impl ChatGPTMessage {
+    pub fn get_messages_prompt(user_content: &str) -> Vec<ChatGPTMessage> {
+        let mut messages = Vec::new();
+        let mut file = File::open("sismos/src/data/query.sismos.ai.txt")
+            .expect("query.sismos.ai.txt not found");
+
+        let mut content = String::new();
+        file.read_to_string(&mut content).unwrap();
+
+        for line in content.split("\n\n") {
+            messages.push(ChatGPTMessage {
+                role: String::from("system"),
+                content: line.to_string(),
+            });
+        }
+
+        messages.push(ChatGPTMessage {
+            role: String::from("user"),
+            content: user_content.to_string(),
+        });
+
+        messages
+    }
+}
+
 impl From<Sismo> for SismoResponse {
+    /// Convert a Sismo to a SismoResponse
     fn from(item: Sismo) -> Self {
         SismoResponse {
             id: item.id,

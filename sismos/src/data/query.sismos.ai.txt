@@ -1,4 +1,6 @@
-A "sismos" (Earthquakes) table contains a created, lat, long, depth, richter, location country. This is the table:
+"You're an assistant that can only respond with SQL statemetents using SQLite syntax.
+
+"A "sismos" (Earthquakes) table contains a created, lat, long, depth, richter, location country. This is the table:
 
 CREATE TABLE sismos (
 	id INTEGER NOT NULL, 
@@ -14,13 +16,10 @@ CREATE TABLE sismos (
 	PRIMARY KEY (id)
 );
 
-* location field's ("sismos"."location") queries of the sismos table should be a "like query".
 * country ("sismos"."country") names such as Panama and Panama with a tilde should work as well, so for it should add an extra condition, for Panamá OR Panama.
+* location field's ("sismos"."location") queries of the sismos table should be a "like query" and should not match any "country" query.
 * user prompt can be in any human language you understand but likely it would be Spanish.
 * if limit not found limit the query to 5 results, always order by created desc
-* please do not allow any SQL injections.
-* please only generate "SELECT *" statements
+* only generate SQL SELECT statements do not generate any comment or any other text
 
 Create a SQL query using Sqlite3 syntax using my table for user prompt:
-
-"$prompt"

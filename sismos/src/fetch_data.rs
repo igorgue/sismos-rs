@@ -19,15 +19,19 @@ pub async fn fetch_data() {
 }
 
 pub async fn result_from_raw_sql(sql: &str) -> Result<String, sqlx::Error> {
-    assert!(sql.to_uppercase().starts_with("SELECT COUNT"));
+    assert!(
+        sql.to_uppercase().starts_with("SELECT COUNT")
+            || sql.to_uppercase().starts_with("SELECT SUM")
+            || sql.to_uppercase().starts_with("SELECT AVG")
+    );
 
     let pool = get_pool().await;
 
     info!("Executing query: {}!!!", sql);
 
-    let count: String = query(sql).fetch_one(&pool).await?.get(0);
+    let count: f32 = query(sql).fetch_one(&pool).await?.get(0);
 
-    Ok(count)
+    Ok(count.to_string())
 }
 
 pub async fn fetch_sismos_from_raw_sql(sql: &str) -> Vec<Sismo> {
